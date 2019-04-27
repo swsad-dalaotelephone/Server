@@ -1,1 +1,4 @@
 Error:2019/04/27 04:42:30 weAppLogin.go:28: invalid appid, hints: [ req_id: UBnBxQaLRa-AdKqnA ]
+Error:2019/04/27 11:25:06 db.go:19: Error 1045: Access denied for user 'root'@'localhost' (using password: YES)
+Error:2019/04/27 11:26:39 db.go:19: Error 1045: Access denied for user 'root'@'localhost' (using password: YES)
+Error:2019/04/27 11:30:06 db.go:19: Error 1049: Unknown database 'baobaozhuan'

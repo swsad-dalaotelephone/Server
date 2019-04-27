@@ -22,7 +22,10 @@ func InitRouter() *gin.Engine {
 	if gin.IsDebugging() {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
-	infoFile, _ := os.OpenFile("storage/logs/api.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	dname := os.Getenv("GOPATH")
+	filePath := dname + "src/baobaozhuan/storage/logs/api.log"
+	infoFile, _ := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+
 	log.Logger = log.Output(
 		zerolog.ConsoleWriter{
 			Out:        infoFile,
@@ -39,6 +42,9 @@ func InitRouter() *gin.Engine {
 	// set recovery middleware
 	router.Use(gin.Recovery())
 	// add session middleware
+	router.GET("/",func(c *gin.Context) {
+		c.String(200, "welcome baobaozhuan!")
+	})
 	router.Use(sessionMiddleware.RegisterSession(config.CookieConfig.Name))
 	router.GET("/weAppLogin", userController.WeAppLogin)
 	router.POST("/login", userController.Login)

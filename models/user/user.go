@@ -34,7 +34,7 @@ func init() {
 
 // set user.id as uuid before create
 func (user *User) BeforeCreate(scope *gorm.Scope) error {
-	user.Id = uuid.Must(uuid.NewV4()).String()
+	user.Id = uuid.Must(uuid.NewV4(), nil).String()
 	return nil
 }
 
