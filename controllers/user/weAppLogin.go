@@ -37,7 +37,7 @@ func WeAppLogin(c *gin.Context) {
 	user, err := userModel.GetUserByKey("OpenId", res.OpenID)
 	// if user is unregistered
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg":    "user is unregistered",
 			"openId": res.OpenID,
 		})
