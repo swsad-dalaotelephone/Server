@@ -26,11 +26,11 @@ type User struct {
 	DeletedAt *time.Time `gorm:"column:deleted_at" json:"-"`
 }
 
-func init() {
-	if !DB.HasTable(UserTableName) {
-		DB.Table(UserTableName).CreateTable(&User{})
-	}
-}
+// func init() {
+// 	if !DB.HasTable(UserTableName) {
+// 		DB.Table(UserTableName).CreateTable(&User{})
+// 	}
+// }
 
 // set user.id as uuid before create
 func (user *User) BeforeCreate(scope *gorm.Scope) error {

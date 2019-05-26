@@ -3,7 +3,7 @@
 		"Dialect"      : "mysql",
 		"Database"     : "baobaozhuan",
 		"User"	       : "root",
-		"Password"     : ,
+		"Password"     : "",
 		"Host"         : "127.0.0.1",/*数据库ip*/
 		"Port"         : 3306,       /*数据库端口*/
 		"Charset"      : "utf8",
@@ -27,14 +27,14 @@
 		"MaxContentLen"       : 10000      /*最大的内容长度*/
 	},
 	"weApp": {
-		"AppID"    : , /*小程序ID*/
-		"Secret"   :   /*小程序密钥*/
+		"AppID"    : "", /*小程序ID*/
+		"Secret"   : ""  /*小程序密钥*/
 	},
 	"redis": {
-		"Host"		:"127.0.0.1",
-		"Port"		:6379,
-		"Password"	:"",
-		"SessionKey"	:"baobaozhuan_session_secret"
+		"Host"		: "127.0.0.1",
+		"Port"		: 6379,
+		"Password"	: "",
+		"SessionKey"	: "baobaozhuan_session_secret"
 	},
 	"cookie": {
 		"Name"	:"baobaozhuan_cookie"

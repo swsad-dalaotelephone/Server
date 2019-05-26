@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"regexp"
 	"os"
+	"regexp"
+
 	"github.com/goinggo/mapstructure"
 )
 
@@ -15,7 +16,7 @@ var jsonData map[string]interface{}
 
 func readJSON() {
 	GOPATH := os.Getenv("GOPATH")
-	file := GOPATH + "/src/baobaozhuan/config.json"
+	file := GOPATH + "/src/github.com/swsad-dalaotelephone/Server/config.json"
 	bytes, err := ioutil.ReadFile(file)
 	if err != nil {
 		log.ErrorLog.Println(err.Error())
