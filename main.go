@@ -1,9 +1,10 @@
 package main
 
 import (
-	"baobaozhuan/config"
-	. "baobaozhuan/router"
 	"strconv"
+
+	"github.com/swsad-dalaotelephone/Server/config"
+	. "github.com/swsad-dalaotelephone/Server/router"
 
 	"github.com/gin-gonic/gin"
 )
