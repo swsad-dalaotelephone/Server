@@ -14,7 +14,7 @@ var (
 func init() {
 	//open log file
 	GOPATH := os.Getenv("GOPATH")
-	dname := GOPATH + "/src/baobaozhuan/storage/logs"
+	dname := GOPATH + "/src/github.com/swsad-dalaotelephone/Server/storage/logs"
 	os.MkdirAll(dname, os.ModeDir|os.ModePerm)
 	errFile, err := os.OpenFile(dname+"/errors.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {

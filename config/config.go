@@ -1,7 +1,7 @@
 package config
 
 import (
-	"baobaozhuan/modules/log"
+	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"

@@ -1,7 +1,7 @@
 package userModel
 
 import (
-	. "baobaozhuan/database"
+	. "github.com/swsad-dalaotelephone/Server/database"
 	"time"
 
 	"github.com/jinzhu/gorm"

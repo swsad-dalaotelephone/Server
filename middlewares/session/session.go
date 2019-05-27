@@ -1,7 +1,7 @@
 package sessionMiddleware
 
 import (
-	"baobaozhuan/config"
+	"github.com/swsad-dalaotelephone/Server/config"
 	"strconv"
 
 	"github.com/gin-contrib/sessions"

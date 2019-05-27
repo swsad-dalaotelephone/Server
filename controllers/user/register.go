@@ -1,9 +1,9 @@
 package userController
 
 import (
-	"baobaozhuan/models/user"
-	"baobaozhuan/modules/log"
-	"baobaozhuan/modules/util"
+	"github.com/swsad-dalaotelephone/Server/models/user"
+	"github.com/swsad-dalaotelephone/Server/modules/log"
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 	"errors"
 	"net/http"
 
