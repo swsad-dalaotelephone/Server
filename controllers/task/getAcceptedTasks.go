@@ -5,10 +5,10 @@ import (
 )
 
 /*
-GetRecommendTasks : get recommend task
+GetAcceptedTasks : get accepted task
 require:
 return:
 */
-func GetRecommendTasks(c *gin.Context) {
+func GetAcceptedTasks(c *gin.Context) {
 
 }
