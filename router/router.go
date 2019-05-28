@@ -42,11 +42,11 @@ func InitRouter() *gin.Engine {
 	// set recovery middleware
 	router.Use(gin.Recovery())
 	// add session middleware
-	router.GET("/",func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.String(200, "welcome baobaozhuan!")
 	})
 	router.Use(sessionMiddleware.RegisterSession(config.CookieConfig.Name))
-	router.GET("/weAppLogin", userController.WeAppLogin)
+	router.GET("/loginWeApp", userController.WeAppLogin)
 	router.POST("/login", userController.Login)
 	router.POST("/register", userController.Register)
 	router.GET("/logout", auth.AuthMiddleware(), userController.Logout)

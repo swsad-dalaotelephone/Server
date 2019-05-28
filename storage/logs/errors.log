@@ -2,3 +2,12 @@ Error:2019/04/27 04:42:30 weAppLogin.go:28: invalid appid, hints: [ req_id: UBnB
 Error:2019/04/27 11:25:06 db.go:19: Error 1045: Access denied for user 'root'@'localhost' (using password: YES)
 Error:2019/04/27 11:26:39 db.go:19: Error 1045: Access denied for user 'root'@'localhost' (using password: YES)
 Error:2019/04/27 11:30:06 db.go:19: Error 1049: Unknown database 'baobaozhuan'
+Error:2019/05/12 19:51:06 config.go:30: invalid character ',' looking for beginning of value
+Error:2019/05/12 19:53:48 config.go:31: invalid character ',' looking for beginning of value
+Error:2019/05/12 19:54:44 config.go:32: invalid character ',' looking for beginning of value
+Error:2019/05/12 20:00:02 config.go:32: invalid character ',' looking for beginning of value
+Error:2019/05/12 20:01:27 config.go:31: invalid character ',' looking for beginning of value
+Error:2019/05/27 15:59:44 db.go:19: Error 1049: Unknown database 'baobaozhuan'
+Error:2019/05/27 16:00:29 db.go:19: Error 1049: Unknown database 'baobaozhuan'
+Error:2019/05/27 16:02:17 db.go:19: Error 1049: Unknown database 'baobaozhuan'
+Error:2019/05/28 20:50:54 preference.go:26: Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':idx ON `preference`(user_id)' at line 1
