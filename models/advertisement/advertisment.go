@@ -1,8 +1,8 @@
 package advertismentModel
 
 import (
-	. "baobaozhuan/database"
-	"baobaozhuan/modules/util"
+	. "github.com/swsad-dalaotelephone/Server/database"
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 	"time"
 
 	"github.com/jinzhu/gorm"

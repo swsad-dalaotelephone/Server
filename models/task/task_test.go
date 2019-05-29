@@ -1,7 +1,7 @@
 package taskModel
 
 import (
-	"baobaozhuan/modules/util"
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 	"encoding/json"
 	"testing"
 )

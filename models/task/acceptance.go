@@ -1,10 +1,10 @@
 package taskModel
 
 import (
-	. "baobaozhuan/database"
-	"baobaozhuan/models/common"
-	"baobaozhuan/modules/log"
-	"baobaozhuan/modules/util"
+	. "github.com/swsad-dalaotelephone/Server/database"
+	"github.com/swsad-dalaotelephone/Server/models/common"
+	"github.com/swsad-dalaotelephone/Server/modules/log"
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 	"time"
 
 	"github.com/jinzhu/gorm"

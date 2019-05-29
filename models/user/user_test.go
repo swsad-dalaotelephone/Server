@@ -1,7 +1,7 @@
 package userModel
 
 import "testing"
-import . "baobaozhuan/database"
+import . "github.com/swsad-dalaotelephone/Server/database"
 
 func TestAddUser(t *testing.T) {
 	AddUser(User{NickName: "xxx", Password: "ttt", Phone: "12312312311"})
