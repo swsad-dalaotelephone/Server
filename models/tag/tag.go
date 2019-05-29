@@ -2,6 +2,7 @@ package tagModel
 
 import (
 	. "baobaozhuan/database"
+	"baobaozhuan/modules/log"
 )
 
 // table name
@@ -10,15 +11,26 @@ const (
 )
 
 type Tag struct {
-	Id   int    `gorm:"primary_key; not null" json:"tag_id"`
-	Name string `json:"name"`
-	Type string `json:"type"`
+	Id   int    `gorm:"column:id; primary_key; not null" json:"tag_id"`
+	Name string `gorm:"column:name; not null; unique"  json:"name"`
+}
+
+func initTag() {
+	AddTag(Tag{Name: "运动"})
+	AddTag(Tag{Name: "音乐"})
+	AddTag(Tag{Name: "社会"})
+	AddTag(Tag{Name: "效率"})
+	AddTag(Tag{Name: "心理"})
+	AddTag(Tag{Name: "美食"})
 }
 
 // if not exist table, create table
 func init() {
 	if !DB.HasTable(TagTableName) {
-		DB.CreateTable(&Tag{})
+		if err := DB.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").CreateTable(&Tag{}).Error; err != nil {
+			log.ErrorLog.Println(err)
+		}
+		initTag()
 	}
 }
 
@@ -38,18 +50,49 @@ func AddTag(tag Tag) bool {
 	return !res
 }
 
-// query tag by key
-func GetTagByKey(key string, value string) (Tag, error) {
-	tag := Tag{}
-	res := DB.Where(key+" = ?", value).First(&tag)
-	err := res.Error
-	return tag, err
+// query tag by string key
+func GetTagByStrKey(key string, value string) (tags []Tag, err error) {
+	res := DB.Where(key+" = ?", value).Find(&tags)
+	err = res.Error
+	return tags, err
+}
+
+// query tag by int key
+func GetTagByIntKey(key string, value int) (tags []Tag, err error) {
+	res := DB.Where(key+" = ?", value).Find(&tags)
+	err = res.Error
+	return tags, err
 }
 
 /*
  update tag info
  must GetTagByKey first
 */
-func UpdateTag(tag Tag) {
-	DB.Save(&tag)
+func UpdateTag(tag Tag) error {
+	err := DB.Save(&tag).Error
+	return err
+}
+
+/*
+ get all tags
+*/
+func GetAllTags() (tags []Tag, err error) {
+	err = DB.Find(&tags).Error
+	return tags, err
+}
+
+/*
+delete tag by id
+*/
+func DeleteTagById(id int) error {
+	err := DB.Where("id = ?", id).Delete(Tag{}).Error
+	return err
+}
+
+/*
+delete tag by name
+*/
+func DeleteTagByName(name string) error {
+	err := DB.Where("name = ?", name).Delete(Tag{}).Error
+	return err
 }

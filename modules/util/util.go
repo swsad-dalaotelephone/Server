@@ -14,6 +14,11 @@ func StructToJson(structModel interface{}) (string, error) {
 	return string(jsonStr), err
 }
 
+func JsonToMap(jsonData []byte) (mapData map[string]interface{}) {
+	json.Unmarshal(jsonData, &mapData)
+	return mapData
+}
+
 //string md5
 func MD5(str string) string {
 	ctx := md5.New()

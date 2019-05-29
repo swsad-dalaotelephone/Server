@@ -11,3 +11,9 @@ Error:2019/05/27 15:59:44 db.go:19: Error 1049: Unknown database 'baobaozhuan'
 Error:2019/05/27 16:00:29 db.go:19: Error 1049: Unknown database 'baobaozhuan'
 Error:2019/05/27 16:02:17 db.go:19: Error 1049: Unknown database 'baobaozhuan'
 Error:2019/05/28 20:50:54 preference.go:26: Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':idx ON `preference`(user_id)' at line 1
+Error:2019/05/29 10:35:59 db.go:19: Error 1045: Access denied for user 'root'@'localhost' (using password: NO)
+Error:2019/05/29 10:35:59 tag.go:31: sql: database is closed
+Error:2019/05/29 10:35:59 task.go:45: sql: database is closed
+Error:2019/05/29 10:35:59 questionnaire.go:28: sql: database is closed
+Error:2019/05/29 10:35:59 dataCollection.go:26: sql: database is closed
+Error:2019/05/29 10:35:59 recruitment.go:29: sql: database is closed

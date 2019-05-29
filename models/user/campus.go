@@ -56,15 +56,13 @@ func AddCampus(campus Campus) bool {
 
 // query campuses by string key
 func GetCampusesByStrKey(key string, value string) (campuses []Campus, err error) {
-	res := DB.Where(key+" = ?", value).First(&campuses)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&campuses).Error
 	return campuses, err
 }
 
 // query campuses by int key
 func GetCampusesByIntKey(key string, value int) (campuses []Campus, err error) {
-	res := DB.Where(key+" = ?", value).Find(&campuses)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&campuses).Error
 	return campuses, err
 }
 

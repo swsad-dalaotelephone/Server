@@ -3,6 +3,7 @@ package taskModel
 import (
 	. "baobaozhuan/database"
 	"baobaozhuan/models/common"
+	"baobaozhuan/modules/log"
 	"time"
 )
 
@@ -12,11 +13,11 @@ const (
 )
 
 type Recruitment struct {
-	TaskId          string           `gorm:"type:varchar(36); primary_key; not null" json:"task_id"`
-	Time            time.Time        `json:"time"`
-	Location        string           `json:"location"`
-	Description     string           `gorm:"type:text" json:"description"`
-	ParticipantInfo commonModel.JSON `sql:"type:json" json:"participant_info"`
+	TaskId          string           `gorm:"column:task_id; type:varchar(36); primary_key; not null" json:"task_id"`
+	Time            time.Time        `gorm:"column:time" json:"time"`
+	Location        string           `gorm:"column:location" json:"location"`
+	Description     string           `gorm:"column:description; type:text" json:"description"`
+	ParticipantInfo commonModel.JSON `gorm:"column:participant_info" sql:"type:json" json:"participant_info"`
 	CreatedAt       time.Time        `gorm:"column:created_at" json:"-"`
 	UpdatedAt       time.Time        `gorm:"column:updated_at" json:"-"`
 }
@@ -24,7 +25,9 @@ type Recruitment struct {
 // if not exist table, create table
 func init() {
 	if !DB.HasTable(RecruitmentTableName) {
-		DB.CreateTable(&Recruitment{})
+		if err := DB.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").CreateTable(&Recruitment{}).Error; err != nil {
+			log.ErrorLog.Println(err)
+		}
 	}
 }
 
@@ -44,18 +47,31 @@ func AddRecruitment(recruitment Recruitment) bool {
 	return !res
 }
 
-// query recruitment by key
-func GetRecruitmentByKey(key string, value string) (Recruitment, error) {
-	recruitment := Recruitment{}
-	res := DB.Where(key+" = ?", value).First(&recruitment)
-	err := res.Error
-	return recruitment, err
+// query recruitments by string key
+func GetRecruitmentsByStrKey(key string, value string) (recruitments []Recruitment, err error) {
+	err = DB.Where(key+" = ?", value).Find(&recruitments).Error
+	return recruitments, err
+}
+
+// query recruitments by int key
+func GetRecruitmentsByIntKey(key string, value int) (recruitments []Recruitment, err error) {
+	err = DB.Where(key+" = ?", value).Find(&recruitments).Error
+	return recruitments, err
 }
 
 /*
  update recruitment info
  must GetRecruitmentByKey first
 */
-func UpdateRecruitment(recruitment Recruitment) {
-	DB.Save(&recruitment)
+func UpdateRecruitment(recruitment Recruitment) error {
+	err := DB.Save(&recruitment).Error
+	return err
+}
+
+/*
+delete recruitment by task_id
+*/
+func DeleteRecruitmentByTaskId(task_id string) error {
+	err := DB.Where("task_id = ?", task_id).Delete(Recruitment{}).Error
+	return err
 }

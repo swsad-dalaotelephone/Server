@@ -43,15 +43,13 @@ func AddSchool(school School) bool {
 
 // query schools by string key
 func GetSchoolsByStrKey(key string, value string) (schools []School, err error) {
-	res := DB.Where(key+" = ?", value).First(&schools)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&schools).Error
 	return schools, err
 }
 
 // query schools by int key
 func GetSchoolsByIntKey(key string, value int) (schools []School, err error) {
-	res := DB.Where(key+" = ?", value).Find(&schools)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&schools).Error
 	return schools, err
 }
 

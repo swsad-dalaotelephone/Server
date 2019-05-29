@@ -46,15 +46,13 @@ func AddPreference(preference Preference) bool {
 
 // query preferences by string key
 func GetPreferencesByStrKey(key string, value string) (preferences []Preference, err error) {
-	res := DB.Where(key+" = ?", value).Find(&preferences)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&preferences).Error
 	return preferences, err
 }
 
 // query preferences by int key
 func GetPreferencesByIntKey(key string, value int) (preferences []Preference, err error) {
-	res := DB.Where(key+" = ?", value).Find(&preferences)
-	err = res.Error
+	err = DB.Where(key+" = ?", value).Find(&preferences).Error
 	return preferences, err
 }
 

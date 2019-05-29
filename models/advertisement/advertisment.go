@@ -14,9 +14,9 @@ const (
 )
 
 type Advertisment struct {
-	Id        string    `gorm:"type:varchar(36); primary_key; not null" json:"id"`
-	Link      string    `json:"link"`
-	Image     string    `json:"image"`
+	Id        string    `gorm:"column:id; type:varchar(36); primary_key; not null" json:"id"`
+	Link      string    `gorm:"column:link" json:"link"`
+	Image     string    `gorm:"column:image" json:"image"`
 	CreatedAt time.Time `gorm:"column:created_at" json:"-"`
 	UpdatedAt time.Time `gorm:"column:updated_at" json:"-"`
 }
@@ -24,7 +24,9 @@ type Advertisment struct {
 // if not exist table, create table
 func init() {
 	if !DB.HasTable(AdvertismentTableName) {
-		DB.CreateTable(&Advertisment{})
+		if err := DB.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").CreateTable(&Advertisment{}}).Error; err != nil {
+			log.ErrorLog.Println(err)
+		}
 	}
 }
 
@@ -50,11 +52,9 @@ func AddAdvertisment(advertisment Advertisment) bool {
 	return !res
 }
 
-// query advertisment by key
-func GetAdvertismentByKey(key string, value string) (Advertisment, error) {
-	advertisment := Advertisment{}
-	res := DB.Where(key+" = ?", value).First(&advertisment)
-	err := res.Error
+// query advertisments by string key
+func GetAdvertismentByStrKey(key string, value string) (advertisments []Advertisment, err error) {
+	err = DB.Where(key+" = ?", value).Find(&advertisments).Error
 	return advertisment, err
 }
 
@@ -62,6 +62,15 @@ func GetAdvertismentByKey(key string, value string) (Advertisment, error) {
  update advertisment info
  must GetAdvertismentByKey first
 */
-func UpdateAdvertisment(advertisment Advertisment) {
-	DB.Save(&advertisment)
+func UpdateAdvertisment(advertisment Advertisment) error {
+	err := DB.Save(&advertisment).Error
+	return err
+}
+
+/* 
+delete advertisment by id
+ */
+func DeleteAdvertismentById(id string) error {
+	err := DB.Where("id = ?", id).Delete(Advertisment{}).Error
+	return err
 }

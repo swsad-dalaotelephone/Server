@@ -1,6 +1,7 @@
 package userModel
 
 import "testing"
+import . "baobaozhuan/database"
 
 func TestAddUser(t *testing.T) {
 	AddUser(User{NickName: "xxx", Password: "ttt", Phone: "12312312311"})
@@ -22,4 +23,15 @@ func TestUpdateUser(t *testing.T) {
 	t.Log(err)
 	users1, err1 = GetUsersByStrKey("phone", "12312312311")
 	t.Log(users1, err1)
+}
+
+func TestRelateQuery(t *testing.T) {
+	users, _ := GetUsersByStrKey("phone", "12312312311")
+	AddPreference(Preference{UserId: users[0].Id, TagId: 11})
+	preferences, _ := GetPreferenceByUser(users[0])
+	t.Log(preferences)
+	DB.Model(&users[0]).Association("Preferences").Append(Preference{TagId: 12})
+	DB.Model(&users[0]).Association("Preferences").Find(&preferences)
+	t.Log(preferences)
+	t.Log(users[0])
 }
