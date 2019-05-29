@@ -34,7 +34,7 @@ func WeAppLogin(c *gin.Context) {
 		return
 	}
 	//find user
-	user, err := userModel.GetUserByKey("OpenId", res.OpenID)
+	users, err := userModel.GetUsersByStrKey("OpenId", res.OpenID)
 	// if user is unregistered
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -44,6 +44,7 @@ func WeAppLogin(c *gin.Context) {
 		c.Error(errors.New("user is unregistered"))
 		return
 	}
+	user := users[0]
 	session := sessions.Default(c)
 	session.Set("user", user)
 	err = session.Save()

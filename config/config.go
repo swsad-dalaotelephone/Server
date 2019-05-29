@@ -22,7 +22,6 @@ func readJSON() {
 		log.ErrorLog.Println(err.Error())
 	}
 	configStr := string(bytes[:])
-
 	//delete all comment in config.json
 	reg := regexp.MustCompile(`/\*.*\*/`)
 	configStr = reg.ReplaceAllString(configStr, "")

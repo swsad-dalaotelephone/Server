@@ -22,7 +22,7 @@ func Login(c *gin.Context) {
 	phone := c.PostForm("phone")
 	password := c.PostForm("password")
 	//find user
-	user, err := userModel.GetUserByKey("Phone", phone)
+	users, err := userModel.GetUsersByStrKey("Phone", phone)
 	// if user is unregistered
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -31,6 +31,7 @@ func Login(c *gin.Context) {
 		c.Error(errors.New("phone is unregistered"))
 		return
 	}
+	user := users[0]
 	// encrypt password with MD5
 	password = util.MD5(password)
 	// if password error
