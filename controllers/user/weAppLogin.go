@@ -1,12 +1,13 @@
 package userController
 
 import (
+	"errors"
+	"net/http"
+
 	"github.com/swsad-dalaotelephone/Server/config"
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
-	"errors"
-	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -26,10 +27,10 @@ func WeAppLogin(c *gin.Context) {
 	//get openID  and  session-key
 	res, err := weapp.Login(appID, secret, code)
 	if err != nil {
-		log.ErrorLog.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "error weapp code",
 		})
+		log.ErrorLog.Println(err)
 		c.Error(errors.New("error weapp code"))
 		return
 	}
@@ -41,6 +42,7 @@ func WeAppLogin(c *gin.Context) {
 			"msg":    "user is unregistered",
 			"openId": res.OpenID,
 		})
+		log.ErrorLog.Println("user is unregistered")
 		c.Error(errors.New("user is unregistered"))
 		return
 	}
@@ -49,20 +51,25 @@ func WeAppLogin(c *gin.Context) {
 	session.Set("user", user)
 	err = session.Save()
 	if err != nil {
-		log.ErrorLog.Println("fail to generate session token")
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "fail to generate session token",
 		})
+		log.ErrorLog.Println("fail to generate session token")
 		c.Error(errors.New("fail to generate session token"))
 	} else {
 		userJson, err := util.StructToJson(user)
 		if err != nil {
-			log.ErrorLog.Println("fail to convert user data to json")
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"msg": err.Error(),
+			})
+			log.ErrorLog.Println(err)
+			c.Error(err)
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{
 			"msg":  "successfully login",
 			"user": userJson,
 		})
-		c.Error(errors.New("successfully login"))
+		log.InfoLog.Println("successfully login")
 	}
 }

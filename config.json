@@ -3,7 +3,7 @@
 		"Dialect"      : "mysql",
 		"Database"     : "baobaozhuan",
 		"User"	       : "root",
-		"Password"     : "",
+		"Password"     : "RootPassword1!",
 		"Host"         : "127.0.0.1",/*数据库ip*/
 		"Port"         : 3306,       /*数据库端口*/
 		"Charset"      : "utf8",

@@ -1,4 +1,4 @@
-package userModel
+package schoolModel
 
 import "testing"
 

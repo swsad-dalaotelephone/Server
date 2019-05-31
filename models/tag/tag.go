@@ -50,15 +50,15 @@ func AddTag(tag Tag) bool {
 	return !res
 }
 
-// query tag by string key
-func GetTagByStrKey(key string, value string) (tags []Tag, err error) {
+// query tags by string key
+func GetTagsByStrKey(key string, value string) (tags []Tag, err error) {
 	res := DB.Where(key+" = ?", value).Find(&tags)
 	err = res.Error
 	return tags, err
 }
 
-// query tag by int key
-func GetTagByIntKey(key string, value int) (tags []Tag, err error) {
+// query tags by int key
+func GetTagsByIntKey(key string, value int) (tags []Tag, err error) {
 	res := DB.Where(key+" = ?", value).Find(&tags)
 	err = res.Error
 	return tags, err

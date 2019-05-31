@@ -1,9 +1,10 @@
-package userModel
+package preferenceModel
 
 import (
+	"time"
+
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
-	"time"
 )
 
 // table name

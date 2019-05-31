@@ -17,3 +17,22 @@ Error:2019/05/29 10:35:59 task.go:45: sql: database is closed
 Error:2019/05/29 10:35:59 questionnaire.go:28: sql: database is closed
 Error:2019/05/29 10:35:59 dataCollection.go:26: sql: database is closed
 Error:2019/05/29 10:35:59 recruitment.go:29: sql: database is closed
+Error:2019/05/31 02:45:45 db.go:18: Error 1049: Unknown database 'baobaozhuan'
+Error:2019/05/31 02:45:45 ad.go:30: sql: database is closed
+Error:2019/05/31 02:45:45 campus.go:34: sql: database is closed
+Error:2019/05/31 02:45:45 preference.go:27: sql: database is closed
+Error:2019/05/31 02:45:45 school.go:23: sql: database is closed
+Error:2019/05/31 02:45:45 tag.go:31: sql: database is closed
+Error:2019/05/31 02:45:45 acceptance.go:34: sql: database is closed
+Error:2019/05/31 02:45:45 dataCollection.go:26: sql: database is closed
+Error:2019/05/31 02:45:45 questionnaire.go:28: sql: database is closed
+Error:2019/05/31 02:45:45 recruitment.go:29: sql: database is closed
+Error:2019/05/31 02:45:45 task.go:46: sql: database is closed
+Error:2019/05/31 02:45:45 user.go:44: sql: database is closed
+Error:2019/05/31 03:13:17 getSchoolList.go:47: school list is empty
+Error:2019/05/31 03:17:25 getSchoolList.go:47: school list is empty
+Error:2019/05/31 03:17:58 getTagById.go:30: Error 1054: Unknown column 'tag_id' in 'where clause'
+Error:2019/05/31 03:22:50 getTagById.go:43: invalid id
+Error:2019/05/31 03:53:40 register.go:30: phone is registered
+Error:2019/05/31 03:58:21 register.go:31: phone is registered
+Error:2019/05/31 04:35:00 register.go:33: phone is registered

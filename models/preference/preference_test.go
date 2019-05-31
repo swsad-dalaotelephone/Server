@@ -1,4 +1,4 @@
-package userModel
+package preferenceModel
 
 import "testing"
 

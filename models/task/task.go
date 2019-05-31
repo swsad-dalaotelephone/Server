@@ -1,12 +1,13 @@
 package taskModel
 
 import (
+	"time"
+
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/models/common"
 	"github.com/swsad-dalaotelephone/Server/models/tag"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
-	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -22,7 +23,7 @@ type Task struct {
 	Type           string           `gorm:"column:type; index:type_idx" json:"type"`
 	Name           string           `gorm:"column:name" json:"name"`
 	BriefInfo      string           `gorm:"column:brief_info" json:"brief_info"`
-	Contract       string           `gorm:"column:contract" json:"contract"`
+	Contact        string           `gorm:"column:contact" json:"contact"`
 	Requirements   commonModel.JSON `gorm:"column:requirements" sql:"type:json" json:"requirements"`
 	DDL            time.Time        `gorm:"column:ddl" json:"ddl"`
 	Reward         int              `gorm:"column:reward; default:0" json:"reward"`
@@ -102,7 +103,7 @@ func DeleteTaskById(id string) error {
 /*
 get unfinished tasks
 */
-func GetUnfinishedTask() (tasks []Task, err error) {
+func GetUnfinishedTasks() (tasks []Task, err error) {
 	err = DB.Where("submited_count + finished_count < required_count").Find(&tasks).Error
 	return tasks, err
 }

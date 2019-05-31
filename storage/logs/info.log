@@ -1,0 +1,15 @@
+Info:2019/05/31 03:15:41 getCampusList.go:42: 5 success
+Info:2019/05/31 03:16:36 getCampusList.go:42: 5 success
+Info:2019/05/31 03:17:32 getTagList.go:42: 6 success
+Info:2019/05/31 03:22:45 getTagById.go:38: 5 心理 success
+Info:2019/05/31 03:22:53 getTagById.go:38: 1 运动 success
+Info:2019/05/31 03:23:24 getCampusById.go:39: 1 广州东校园 success
+Info:2019/05/31 03:23:32 getCampusById.go:39: 3 广州北校园 success
+Info:2019/05/31 03:23:58 getTagById.go:38: 5 心理 success
+Info:2019/05/31 03:24:59 getTagById.go:38: 5 心理 success
+Info:2019/05/31 03:34:59 getTagById.go:38: 2 音乐 success
+Info:2019/05/31 03:53:40 register.go:53: successfully register
+Info:2019/05/31 05:29:18 login.go:90: successfully login
+Info:2019/05/31 05:47:26 login.go:90: successfully login
+Info:2019/05/31 05:53:22 login.go:90: successfully login
+Info:2019/05/31 06:07:40 login.go:90: successfully login

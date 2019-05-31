@@ -5,7 +5,12 @@ import (
 	"time"
 
 	"github.com/swsad-dalaotelephone/Server/config"
+	"github.com/swsad-dalaotelephone/Server/controllers/ad"
+	"github.com/swsad-dalaotelephone/Server/controllers/resources"
+	"github.com/swsad-dalaotelephone/Server/controllers/task"
+	"github.com/swsad-dalaotelephone/Server/controllers/user"
 	"github.com/swsad-dalaotelephone/Server/middlewares/auth"
+	"github.com/swsad-dalaotelephone/Server/middlewares/session"
 
 	"github.com/gin-contrib/logger"
 	"github.com/gin-gonic/gin"
@@ -66,8 +71,11 @@ func InitRouter() *gin.Engine {
 		taskGroup.POST("/verifyTask", auth.AuthMiddleware(), taskController.VerifyTask)
 		taskGroup.POST("/updateTask", auth.AuthMiddleware(), taskController.UpdateTask)
 		taskGroup.POST("/submitTask", auth.AuthMiddleware(), taskController.SubmitTask)
-		taskGroup.GET("/acceptTask", taskController.AcceptTask)
+		taskGroup.GET("/acceptTask", auth.AuthMiddleware(), taskController.AcceptTask)
 		taskGroup.GET("/getRecommendTasks", taskController.GetRecommendTasks)
+		taskGroup.GET("/getPublishedTasks", taskController.GetPublishedTasks)
+		taskGroup.GET("/getAcceptedTasks", taskController.GetAcceptedTasks)
+		taskGroup.GET("/getSubmittedTasks", taskController.GetSubmittedTasks)
 		taskGroup.GET("/getTaskDetail", taskController.GetTaskDetail)
 		taskGroup.GET("/quitTask", auth.AuthMiddleware(), taskController.QuitTask)
 	}
@@ -75,16 +83,19 @@ func InitRouter() *gin.Engine {
 	// ad api
 	adGroup := router.Group("/ad")
 	{
-		adGroup.GET("/getRecommendAds", auth.AuthMiddleware(), adController.GetRecommendAds)
+		adGroup.GET("/getRecommendAds", adController.GetRecommendAds)
 	}
 
 	// resources api
 	resourcesGroup := router.Group("resources")
 	{
-		resourcesGroup.GET("/getSchoolById", auth.AuthMiddleware(), resourcesController.GetSchoolById)
-		resourcesGroup.GET("/getCampusById", auth.AuthMiddleware(), resourcesController.GetCampusById)
-		resourcesGroup.GET("/getPreferencesById", auth.AuthMiddleware(), resourcesController.GetPreferencesById)
-		resourcesGroup.GET("/getTagById", auth.AuthMiddleware(), resourcesController.GetTagById)
+		resourcesGroup.GET("/getSchoolById", resourcesController.GetSchoolById)
+		resourcesGroup.GET("/getCampusById", resourcesController.GetCampusById)
+		resourcesGroup.GET("/getPreferencesById", resourcesController.GetPreferencesById)
+		resourcesGroup.GET("/getTagById", resourcesController.GetTagById)
+		resourcesGroup.GET("/getSchoolList", resourcesController.GetSchoolList)
+		resourcesGroup.GET("/getCampusList", resourcesController.GetCampusList)
+		resourcesGroup.GET("/getTagList", resourcesController.GetTagList)
 	}
 
 	return router

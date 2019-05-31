@@ -1,11 +1,12 @@
 package userController
 
 import (
+	"errors"
+	"net/http"
+
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
-	"errors"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,11 +17,20 @@ func Register(c *gin.Context) {
 	password := c.PostForm("password")
 	openId := c.DefaultPostForm("openId", "")
 	//check phone is not used
-	_, err := userModel.GetUsersByStrKey("Phone", phone)
-	if err == nil {
+	users, err := userModel.GetUsersByStrKey("Phone", phone)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": err.Error,
+		})
+		log.ErrorLog.Println(err)
+		c.Error(err)
+		return
+	}
+	if len(users) != 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "phone is registered",
 		})
+		log.ErrorLog.Println("phone is registered")
 		c.Error(errors.New("phone is registered"))
 		return
 	}
@@ -38,18 +48,23 @@ func Register(c *gin.Context) {
 		// successfully register
 		userJson, err := util.StructToJson(user)
 		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"msg": err.Error(),
+			})
 			log.ErrorLog.Println(err)
+			c.Error(err)
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{
 			"msg":  "successfully register",
 			"user": userJson,
 		})
-		c.Error(errors.New("successfully register"))
+		log.InfoLog.Println("successfully register")
 	} else {
-		log.ErrorLog.Println("fail to register")
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "fail to register",
 		})
+		log.ErrorLog.Println("fail to register")
 		c.Error(errors.New("fail to register"))
 	}
 }
