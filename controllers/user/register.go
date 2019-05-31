@@ -12,12 +12,12 @@ import (
 )
 
 func Register(c *gin.Context) {
-	nickName := c.PostForm("nickName")
+	nickName := c.PostForm("nick_name")
 	phone := c.PostForm("phone")
 	password := c.PostForm("password")
-	openId := c.DefaultPostForm("openId", "")
+	openId := c.DefaultPostForm("open_id", "")
 	//check phone is not used
-	users, err := userModel.GetUsersByStrKey("Phone", phone)
+	users, err := userModel.GetUsersByStrKey("phone", phone)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error,

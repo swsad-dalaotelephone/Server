@@ -13,3 +13,10 @@ Info:2019/05/31 05:29:18 login.go:90: successfully login
 Info:2019/05/31 05:47:26 login.go:90: successfully login
 Info:2019/05/31 05:53:22 login.go:90: successfully login
 Info:2019/05/31 06:07:40 login.go:90: successfully login
+Info:2019/05/31 08:19:11 login.go:90: successfully login
+Info:2019/05/31 08:29:25 logout.go:31: successfully logout
+Info:2019/05/31 08:39:32 login.go:90: successfully login
+Info:2019/05/31 09:12:09 logout.go:31: successfully logout
+Info:2019/05/31 09:13:08 register.go:62: successfully register
+Info:2019/05/31 09:28:41 login.go:90: successfully login
+Info:2019/05/31 09:28:59 login.go:90: successfully login

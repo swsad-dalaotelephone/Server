@@ -59,8 +59,8 @@ func InitRouter() *gin.Engine {
 		userGroup.POST("/login", userController.Login)
 		userGroup.POST("/register", userController.Register)
 		userGroup.GET("/logout", auth.AuthMiddleware(), userController.Logout)
-		userGroup.POST("/updateProfile", auth.AuthMiddleware(), userController.Logout)
-		userGroup.POST("/modifyPassword", auth.AuthMiddleware(), userController.Logout)
+		userGroup.POST("/updateProfile", auth.AuthMiddleware(), userController.UpdateProfile)
+		userGroup.POST("/modifyPassword", auth.AuthMiddleware(), userController.ModifyPassword)
 	}
 
 	// task api

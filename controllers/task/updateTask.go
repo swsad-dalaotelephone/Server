@@ -39,28 +39,28 @@ func UpdateTask(c *gin.Context) {
 		return
 	}
 
-	if len(oldTasks) > 0 {
-		err := taskModel.UpdateTask(newTask)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": err.Error(),
-			})
-			log.ErrorLog.Println(err)
-			c.Error(err)
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{
-			"msg": "success",
-		})
-		log.InfoLog.Println("success")
-	} else {
+	if len(oldTasks) == 0 {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "can not find task",
 		})
 		log.ErrorLog.Println("can not find task")
 		c.Error(errors.New("can not find task"))
 		return
+	}
+
+	// todo: field check
+
+	if err := taskModel.UpdateTask(newTask); err == nil {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": "success",
+		})
+		log.InfoLog.Println("success")
+	} else {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": err.Error(),
+		})
+		log.ErrorLog.Println(err)
+		c.Error(err)
 	}
 
 }

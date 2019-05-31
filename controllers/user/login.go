@@ -23,7 +23,7 @@ func Login(c *gin.Context) {
 	phone := c.PostForm("phone")
 	password := c.PostForm("password")
 	//find user
-	users, err := userModel.GetUsersByStrKey("Phone", phone)
+	users, err := userModel.GetUsersByStrKey("phone", phone)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),

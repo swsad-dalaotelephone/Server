@@ -30,6 +30,8 @@ func PublishTask(c *gin.Context) {
 		return
 	}
 
+	// todo: field check
+
 	ok := taskModel.AddTask(task)
 	if ok {
 		taskJson, err := util.StructToJson(task)
@@ -48,7 +50,7 @@ func PublishTask(c *gin.Context) {
 		log.InfoLog.Println("success")
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "add task faii",
+			"msg": "add task fail",
 		})
 		log.ErrorLog.Println("add task fail")
 		c.Error(errors.New("add task fail"))
