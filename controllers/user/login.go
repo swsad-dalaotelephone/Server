@@ -48,14 +48,13 @@ func Login(c *gin.Context) {
 	// if password error
 	if password != user.Password {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "username or password is incorrect",
+			"msg": "phone or password is incorrect",
 		})
-		log.ErrorLog.Println("username or password is incorrect")
-		c.Error(errors.New("username or password is incorrect"))
+		log.ErrorLog.Println("phone or password is incorrect")
+		c.Error(errors.New("phone or password is incorrect"))
 		return
 	}
 	session := sessions.Default(c)
-	userJson, err := util.StructToJson(user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "json conver error",
@@ -64,7 +63,7 @@ func Login(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-	session.Set("user", userJson)
+	session.Set("userId", user.Id)
 	err = session.Save()
 	if err != nil {
 		log.ErrorLog.Println(err)
