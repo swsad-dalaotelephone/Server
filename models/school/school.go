@@ -22,6 +22,7 @@ func init() {
 		if err := DB.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").CreateTable(&School{}).Error; err != nil {
 			log.ErrorLog.Println(err)
 		}
+		initSchool()
 	}
 }
 

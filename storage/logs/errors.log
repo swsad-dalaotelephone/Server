@@ -61,3 +61,7 @@ Error:2019/06/01 12:32:57 login.go:53: username or password is incorrect
 Error:2019/06/01 12:34:22 login.go:41: phone is unregistered
 Error:2019/06/01 12:34:29 login.go:41: phone is unregistered
 Error:2019/06/01 12:37:56 logout.go:22: invalid session token
+Error:2019/06/01 12:53:50 getSchoolList.go:51: school list is empty
+Error:2019/06/01 12:56:08 getSchoolList.go:51: school list is empty
+Error:2019/06/01 12:57:29 getSchoolList.go:51: school list is empty
+Error:2019/06/01 13:02:21 getSchoolList.go:51: school list is empty
