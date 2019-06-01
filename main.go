@@ -9,9 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
-
-}
 func main() {
 	// set gin debug mode
 	if config.ServerConfig.Debug {
