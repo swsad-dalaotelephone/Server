@@ -65,6 +65,7 @@ func AcceptTask(c *gin.Context) {
 	acceptance.TaskId = taskId
 	acceptance.AccepterId = accepterId
 	acceptance.AccepterName = users[0].NickName
+	acceptance.Status = taskModel.StatusAcceptUncommitted
 
 	if ok := taskModel.AddAcceptance(acceptance); ok {
 		c.JSON(http.StatusOK, gin.H{

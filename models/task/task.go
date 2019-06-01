@@ -30,8 +30,7 @@ type Task struct {
 	Tag            tagModel.Tag     `gorm:"foreignkey:TagId"`
 	TagId          int              `gorm:"column:tag_id; default:0; index:tag_id_idx" json:"tag_id"`
 	RequiredCount  int              `gorm:"column:required_count; default:0" json:"required_count"`
-	SubmitedCount  int              `gorm:"column:submited_count; default:0" json:"submited_count"`
-	FinishedCount  int              `gorm:"column:finished_count; default:0" json:"finished_count"`
+	Status         int              `gorm:"column:status; default:0" json:"status"`
 	CreatedAt      time.Time        `gorm:"column:created_at" json:"-"`
 	UpdatedAt      time.Time        `gorm:"column:updated_at" json:"-"`
 	Questionnaire  Questionnaire    `gorm:"foreignkey:TaskId"`

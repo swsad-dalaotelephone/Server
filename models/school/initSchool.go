@@ -1,10 +1,13 @@
 package schoolModel
 
+import "fmt"
+
 /*
 add all school of sysu
 */
 func initSchool() {
-	AddSchool(School{Name: "中国语言文学系", Type: "文科"})
+	res := AddSchool(School{Name: "中国语言文学系", Type: "文科"})
+	fmt.Println(res)
 	AddSchool(School{Name: "历史学系", Type: "文科"})
 	AddSchool(School{Name: "社会学与人类学学院", Type: "文科"})
 	AddSchool(School{Name: "博雅学院", Type: "文科"})

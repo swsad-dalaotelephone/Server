@@ -25,3 +25,5 @@ Info:2019/06/01 00:34:00 login.go:90: successfully login
 Info:2019/06/01 00:39:18 logout.go:31: successfully logout
 Info:2019/06/01 12:34:34 login.go:89: successfully login
 Info:2019/06/01 12:43:53 logout.go:21: successfully logout
+Info:2019/06/01 13:02:57 getTagList.go:46: 6 success
+Info:2019/06/01 13:06:43 getSchoolList.go:46: 53 success
