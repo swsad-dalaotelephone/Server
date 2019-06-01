@@ -20,3 +20,5 @@ Info:2019/05/31 09:12:09 logout.go:31: successfully logout
 Info:2019/05/31 09:13:08 register.go:62: successfully register
 Info:2019/05/31 09:28:41 login.go:90: successfully login
 Info:2019/05/31 09:28:59 login.go:90: successfully login
+Info:2019/06/01 12:34:34 login.go:89: successfully login
+Info:2019/06/01 12:43:53 logout.go:21: successfully logout
