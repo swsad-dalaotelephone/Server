@@ -15,15 +15,6 @@ type Tag struct {
 	Name string `gorm:"column:name; not null; unique"  json:"name"`
 }
 
-func initTag() {
-	AddTag(Tag{Name: "运动"})
-	AddTag(Tag{Name: "音乐"})
-	AddTag(Tag{Name: "社会"})
-	AddTag(Tag{Name: "效率"})
-	AddTag(Tag{Name: "心理"})
-	AddTag(Tag{Name: "美食"})
-}
-
 // if not exist table, create table
 func init() {
 	if !DB.HasTable(TagTableName) {
@@ -44,10 +35,10 @@ func (u Tag) TableName() string {
  @parm new tag
  @return isSuccessful
 */
-func AddTag(tag Tag) bool {
+func AddTag(tag Tag) (Tag, bool) {
 	DB.Create(&tag)
 	res := DB.NewRecord(&tag) //return `false` after `tag` created
-	return !res
+	return tag, !res
 }
 
 // query tags by string key

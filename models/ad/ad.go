@@ -48,10 +48,10 @@ func (ad *Ad) BeforeCreate(scope *gorm.Scope) error {
  @parm new ad
  @return isSuccessful
 */
-func AddAd(ad Ad) bool {
+func AddAd(ad Ad) (Ad, bool) {
 	DB.Create(&ad)
 	res := DB.NewRecord(&ad) //return `false` after `ad` created
-	return !res
+	return ad, !res
 }
 
 // query ads by string key

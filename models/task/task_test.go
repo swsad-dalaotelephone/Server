@@ -1,9 +1,10 @@
 package taskModel
 
 import (
-	"github.com/swsad-dalaotelephone/Server/modules/util"
 	"encoding/json"
 	"testing"
+
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 )
 
 func TestAddTask(t *testing.T) {
@@ -14,15 +15,15 @@ func TestAddTask(t *testing.T) {
 	img := &Img{"golang.png", "https://www.domain.com/avatar.png"}
 	icon, _ := json.Marshal(img)
 
-	res := AddTask(Task{
+	task, res := AddTask(Task{
 		PublisherId:   "xxx",
 		Type:          "q",
 		Name:          "dalkdj",
 		BriefInfo:     "testteatlakjflksajf",
-		Contract:      "123123",
+		Contact:       "123123",
 		Requirements:  icon,
 		RequiredCount: 1})
-	t.Log(res)
+	t.Log(task, res)
 }
 
 func TestGetTask(t *testing.T) {
@@ -35,7 +36,7 @@ func TestGetTask(t *testing.T) {
 }
 
 func TestGetUnfinishedTask(t *testing.T) {
-	tasks1, _ := GetUnfinishedTask()
+	tasks1, _ := GetUnfinishedTasks()
 	t.Log(len(tasks1))
 }
 
@@ -60,12 +61,12 @@ func TestQuestionnaire(t *testing.T) {
 	img := &Img{"golang.png", "https://www.domain.com/avatar.png"}
 	icon, _ := json.Marshal(img)
 
-	res := AddTask(Task{
+	task, res := AddTask(Task{
 		PublisherId:   "qqq",
 		Type:          "q",
 		Name:          "问卷test",
 		BriefInfo:     "testteatlakjflksajf",
-		Contract:      "123123",
+		Contact:       "123123",
 		RequiredCount: 1,
 		Questionnaire: Questionnaire{
 			Description: "dddddd",
@@ -73,7 +74,7 @@ func TestQuestionnaire(t *testing.T) {
 	t.Log(res)
 
 	tasks, _ = GetTasksByStrKey("type", "q")
-	task := tasks[0]
+	task = tasks[0]
 	task, _ = GetTaskDetail(task)
 	t.Log(task)
 }

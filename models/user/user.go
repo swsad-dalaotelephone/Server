@@ -63,10 +63,10 @@ func (user *User) BeforeCreate(scope *gorm.Scope) error {
  @parm new user
  @return isSuccessful
 */
-func AddUser(user User) bool {
+func AddUser(user User) (User, bool) {
 	DB.Create(&user)
 	res := DB.NewRecord(&user) //return `false` after `user` created
-	return !res
+	return user, !res
 }
 
 // query users by string key

@@ -1,11 +1,12 @@
 package taskModel
 
 import (
+	"time"
+
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/models/common"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
-	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -52,10 +53,10 @@ func (acceptance *Acceptance) BeforeCreate(scope *gorm.Scope) error {
  @parm new acceptance
  @return isSuccessful
 */
-func AddAcceptance(acceptance Acceptance) bool {
+func AddAcceptance(acceptance Acceptance) (Acceptance, bool) {
 	DB.Create(&acceptance)
 	res := DB.NewRecord(&acceptance) //return `false` after `acceptance` created
-	return !res
+	return acceptance, !res
 }
 
 // query acceptances by string key

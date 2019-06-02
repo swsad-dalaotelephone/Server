@@ -15,18 +15,6 @@ type Campus struct {
 	Name string `gorm:"column:name; not null; unique" sql:"not null" json:"name"`
 }
 
-/*
-add 5 campus of sysu
-*/
-func initCampus() {
-	AddCampus(Campus{1, "广州东校园"})
-	AddCampus(Campus{2, "广州南校园"})
-	AddCampus(Campus{3, "广州北校园"})
-	AddCampus(Campus{4, "珠海校区"})
-	AddCampus(Campus{5, "深圳校区"})
-
-}
-
 // if not exist table, create table
 func init() {
 	if !DB.HasTable(CampusTableName) {
@@ -48,10 +36,10 @@ func (u Campus) TableName() string {
  @parm new campus
  @return isSuccessful
 */
-func AddCampus(campus Campus) bool {
+func AddCampus(campus Campus) (Campus, bool) {
 	DB.Create(&campus)
 	res := DB.NewRecord(&campus) //return `false` after `campus` created
-	return !res
+	return campus, !res
 }
 
 // query campuses by string key

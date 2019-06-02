@@ -19,7 +19,7 @@ const (
 
 type Task struct {
 	Id             string           `gorm:"column:id; type:varchar(36); primary_key; not null" json:"id"`
-	PublisherId    string           `gorm:"column:public_id; type:varchar(36); not null; index:publisher_id_idx" json:"publiser_id"`
+	PublisherId    string           `gorm:"column:publisher_id; type:varchar(36); not null; index:publisher_id_idx" json:"publisher_id"`
 	Type           string           `gorm:"column:type; index:type_idx" json:"type"`
 	Name           string           `gorm:"column:name" json:"name"`
 	BriefInfo      string           `gorm:"column:brief_info" json:"brief_info"`
@@ -64,10 +64,10 @@ func (task *Task) BeforeCreate(scope *gorm.Scope) error {
  @parm new task
  @return isSuccessful
 */
-func AddTask(task Task) bool {
+func AddTask(task Task) (Task, bool) {
 	DB.Create(&task)
 	res := DB.NewRecord(&task) //return `false` after `task` created
-	return !res
+	return task, !res
 }
 
 // query tasks by string key

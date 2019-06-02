@@ -1,10 +1,11 @@
 package taskModel
 
 import (
+	"time"
+
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/models/common"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
-	"time"
 )
 
 // table name
@@ -41,10 +42,10 @@ func (u Recruitment) TableName() string {
  @parm new recruitment
  @return isSuccessful
 */
-func AddRecruitment(recruitment Recruitment) bool {
+func AddRecruitment(recruitment Recruitment) (Recruitment, bool) {
 	DB.Create(&recruitment)
 	res := DB.NewRecord(&recruitment) //return `false` after `recruitment` created
-	return !res
+	return recruitment, !res
 }
 
 // query recruitments by string key

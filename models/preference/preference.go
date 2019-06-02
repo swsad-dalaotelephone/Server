@@ -39,10 +39,10 @@ func (u Preference) TableName() string {
  @parm new preference
  @return isSuccessful
 */
-func AddPreference(preference Preference) bool {
+func AddPreference(preference Preference) (Preference, bool) {
 	DB.Create(&preference)
 	res := DB.NewRecord(&preference) //return `false` after `preference` created
-	return !res
+	return preference, !res
 }
 
 // query preferences by string key

@@ -3,10 +3,14 @@ package preferenceModel
 import "testing"
 
 func TestAddPreference(t *testing.T) {
-	AddPreference(Preference{UserId: "abc", TagId: 11})
-	AddPreference(Preference{UserId: "abc", TagId: 2})
-	AddPreference(Preference{UserId: "aaa", TagId: 11})
-	AddPreference(Preference{UserId: "aaa", TagId: 2})
+	preference, res := AddPreference(Preference{UserId: "abc", TagId: 11})
+	t.Log(preference, res)
+	preference, res = AddPreference(Preference{UserId: "abc", TagId: 2})
+	t.Log(preference, res)
+	preference, res = AddPreference(Preference{UserId: "aaa", TagId: 11})
+	t.Log(preference, res)
+	preference, res = AddPreference(Preference{UserId: "aaa", TagId: 2})
+	t.Log(preference, res)
 }
 
 func TestGetPreference(t *testing.T) {

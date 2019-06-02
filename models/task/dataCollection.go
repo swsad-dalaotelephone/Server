@@ -1,9 +1,10 @@
 package taskModel
 
 import (
+	"time"
+
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
-	"time"
 )
 
 // table name
@@ -38,10 +39,10 @@ func (u DataCollection) TableName() string {
  @parm new dataCollection
  @return isSuccessful
 */
-func AddDataCollection(dataCollection DataCollection) bool {
+func AddDataCollection(dataCollection DataCollection) (DataCollection, bool) {
 	DB.Create(&dataCollection)
 	res := DB.NewRecord(&dataCollection) //return `false` after `dataCollection` created
-	return !res
+	return dataCollection, !res
 }
 
 // query dataCollections by string key

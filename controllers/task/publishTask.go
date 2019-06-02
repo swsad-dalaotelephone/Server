@@ -32,7 +32,7 @@ func PublishTask(c *gin.Context) {
 
 	// todo: field check
 
-	ok := taskModel.AddTask(task)
+	task, ok := taskModel.AddTask(task)
 	if ok {
 		taskJson, err := util.StructToJson(task)
 		if err != nil {

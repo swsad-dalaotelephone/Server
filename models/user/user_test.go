@@ -1,10 +1,15 @@
 package userModel
 
-import "testing"
-import . "github.com/swsad-dalaotelephone/Server/database"
+import (
+	"testing"
+
+	. "github.com/swsad-dalaotelephone/Server/database"
+	"github.com/swsad-dalaotelephone/Server/models/preference"
+)
 
 func TestAddUser(t *testing.T) {
-	AddUser(User{NickName: "xxx", Password: "ttt", Phone: "12312312311"})
+	user, res := AddUser(User{NickName: "xxx", Phone: "12312312311"})
+	t.Log(user, res)
 }
 
 func TestGetUser(t *testing.T) {
@@ -27,10 +32,10 @@ func TestUpdateUser(t *testing.T) {
 
 func TestRelateQuery(t *testing.T) {
 	users, _ := GetUsersByStrKey("phone", "12312312311")
-	AddPreference(Preference{UserId: users[0].Id, TagId: 11})
+	preferenceModel.AddPreference(preferenceModel.Preference{UserId: users[0].Id, TagId: 11})
 	preferences, _ := GetPreferenceByUser(users[0])
 	t.Log(preferences)
-	DB.Model(&users[0]).Association("Preferences").Append(Preference{TagId: 12})
+	DB.Model(&users[0]).Association("Preferences").Append(preferenceModel.Preference{TagId: 12})
 	DB.Model(&users[0]).Association("Preferences").Find(&preferences)
 	t.Log(preferences)
 	t.Log(users[0])
