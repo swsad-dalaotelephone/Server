@@ -42,7 +42,7 @@ func Register(c *gin.Context) {
 	password = util.MD5(password)
 	user.Password = password
 	user.Phone = phone
-	res := userModel.AddUser(user)
+	user, res := userModel.AddUser(user)
 
 	if res {
 		// successfully register

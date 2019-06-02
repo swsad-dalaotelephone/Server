@@ -67,7 +67,7 @@ func AcceptTask(c *gin.Context) {
 	acceptance.AccepterName = users[0].NickName
 	acceptance.Status = taskModel.StatusAcceptUnsubmitted
 
-	if ok := taskModel.AddAcceptance(acceptance); ok {
+	if _, ok := taskModel.AddAcceptance(acceptance); ok {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "success",
 		})
