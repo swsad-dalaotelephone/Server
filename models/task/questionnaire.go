@@ -15,7 +15,7 @@ const (
 
 type Questionnaire struct {
 	TaskId      string           `gorm:"column:task_id; type:varchar(36); primary_key; not null" json:"task_id"`
-	Description string           `gorm:"column:description; type:text" json:"description"`
+	Description string           `gorm:"column:description; type:text" json:"quest_des"`
 	Questions   commonModel.JSON `gorm:"column:questions" sql:"type:json" json:"questions"`
 	Statistics  commonModel.JSON `gorm:"column:statistics" sql:"type:json" json:"statistics"`
 	CreatedAt   time.Time        `gorm:"column:created_at" json:"-"`

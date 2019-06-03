@@ -34,7 +34,7 @@ func PublishTask(c *gin.Context) {
 
 	task, ok := taskModel.AddTask(task)
 	if ok {
-		taskJson, err := util.StructToJson(task)
+		taskJson, err := util.StructToJsonStr(task)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

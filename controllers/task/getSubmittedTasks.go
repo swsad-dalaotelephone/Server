@@ -23,7 +23,7 @@ func GetSubmittedTasks(c *gin.Context) {
 	publisherId := c.Query("publisher_id")
 
 	// check task_id exist or not
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -74,7 +74,7 @@ func GetSubmittedTasks(c *gin.Context) {
 	}
 
 	if len(submitted) > 0 {
-		submittedJson, err := util.StructToJson(submitted)
+		submittedJson, err := util.StructToJsonStr(submitted)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

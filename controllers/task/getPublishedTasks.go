@@ -33,7 +33,7 @@ func GetPublishedTasks(c *gin.Context) {
 	}
 
 	if len(tasks) > 0 {
-		tasksJson, err := util.StructToJson(tasks)
+		tasksJson, err := util.StructToJsonStr(tasks)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

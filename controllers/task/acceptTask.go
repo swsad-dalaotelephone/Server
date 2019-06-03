@@ -30,7 +30,7 @@ func AcceptTask(c *gin.Context) {
 	}
 
 	// check task_id exist or not
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -41,7 +41,7 @@ func AcceptTask(c *gin.Context) {
 	}
 
 	// check accepter_id exist or not
-	users, err := userModel.GetUsersByStrKey("user_id", accepterId)
+	users, err := userModel.GetUsersByStrKey("id", accepterId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),

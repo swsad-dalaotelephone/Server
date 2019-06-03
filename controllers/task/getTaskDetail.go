@@ -19,7 +19,7 @@ func GetTaskDetail(c *gin.Context) {
 	taskId := c.Query("task_id")
 
 	// get task
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -31,7 +31,7 @@ func GetTaskDetail(c *gin.Context) {
 	}
 
 	if len(tasks) > 0 {
-		tasksJson, err := util.StructToJson(tasks)
+		tasksJson, err := util.StructToJsonStr(tasks[0])
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

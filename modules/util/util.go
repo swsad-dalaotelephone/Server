@@ -8,15 +8,22 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-//encode struct to json
-func StructToJson(structModel interface{}) (string, error) {
-	jsonStr, err := json.Marshal(structModel)
-	return string(jsonStr), err
+// encode struct to json(byte[])
+func StructToJson(structModel interface{}) ([]byte, error) {
+	json, err := json.Marshal(structModel)
+	return json, err
 }
 
-func JsonToMap(jsonData []byte) (mapData map[string]interface{}) {
-	json.Unmarshal(jsonData, &mapData)
-	return mapData
+// encode struct to json string
+func StructToJsonStr(structModel interface{}) (string, error) {
+	json, err := json.Marshal(structModel)
+	return string(json), err
+}
+
+// decode json(byte[]) to map[string]interface{}
+func JsonToMap(jsonData []byte) (mapData map[string]interface{}, err error) {
+	err = json.Unmarshal(jsonData, &mapData)
+	return mapData, err
 }
 
 //string md5

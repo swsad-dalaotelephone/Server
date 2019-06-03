@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/swsad-dalaotelephone/Server/models/task"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
@@ -18,7 +19,16 @@ return: msg
 func QuitTask(c *gin.Context) {
 	taskId := c.Query("task_id")
 	accepterId := c.Query("accepter_id")
-
+	session := sessions.Default(c)
+	userId := session.Get("userId")
+	if userId != accepterId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "invalid user request",
+		})
+		log.ErrorLog.Println("invalid user request")
+		c.Error(errors.New("invalid user request"))
+		return
+	}
 	if taskId == "" || accepterId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",

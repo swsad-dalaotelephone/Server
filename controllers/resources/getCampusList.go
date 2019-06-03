@@ -31,7 +31,7 @@ func GetCampusList(c *gin.Context) {
 	}
 
 	if len(campuses) > 0 {
-		campusesJson, err := util.StructToJson(campuses)
+		campusesJson, err := util.StructToJsonStr(campuses)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

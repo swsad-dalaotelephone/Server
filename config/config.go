@@ -1,12 +1,13 @@
 package config
 
 import (
-	"github.com/swsad-dalaotelephone/Server/modules/log"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
+
+	"github.com/swsad-dalaotelephone/Server/modules/log"
+	"github.com/swsad-dalaotelephone/Server/modules/util"
 
 	"github.com/goinggo/mapstructure"
 )
@@ -26,7 +27,7 @@ func readJSON() {
 	reg := regexp.MustCompile(`/\*.*\*/`)
 	configStr = reg.ReplaceAllString(configStr, "")
 	bytes = []byte(configStr)
-	if err := json.Unmarshal(bytes, &jsonData); err != nil {
+	if jsonData, err = util.JsonToMap(bytes); err != nil {
 		log.ErrorLog.Println(err.Error())
 	}
 }

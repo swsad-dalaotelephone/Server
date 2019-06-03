@@ -7,24 +7,26 @@ Go Server for baobaozhuan, use gin + gorm development framework
 - gorm : https://github.com/jinzhu/gorm
 - weapp sdk : https://github.com/medivhzhan/weapp 
 
+#### Required 
+- mysql 5.7
+- redis 5.0.2
+
 #### Automatically download dependent packages by go module (go >= 1.11)
-1. open go modules
+    open go modules
     ```
     $ export GO111MODULE=on
     ```
-2. download module
+#### Quick Start
+- go get
     ```
-    $ go mod tidy -v
+    $ go get -u github.com/swsad-dalaotelephone/Server
     ```
-
-#### configure settings
-modify config.json
-
-#### run
-```
-$ go build
-$ ./baobaozhuan
-```
+- configure settings: modify config.json 
+- run
+    ```
+    $ go install
+    $ Server
+    ```
 
 ## Project Structure
 ```

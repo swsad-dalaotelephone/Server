@@ -14,7 +14,7 @@ const (
 
 type DataCollection struct {
 	TaskId      string    `gorm:"column:task_id; type:varchar(36); primary_key; not null" json:"task_id"`
-	Description string    `gorm:"column:description; type:text" json:"description"`
+	Description string    `gorm:"column:description; type:text" json:"data_des"`
 	SubmitWay   string    `gorm:"column:submit_way" json:"submit_way"`
 	CreatedAt   time.Time `gorm:"column:created_at" json:"-"`
 	UpdatedAt   time.Time `gorm:"column:updated_at" json:"-"`

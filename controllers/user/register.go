@@ -46,7 +46,7 @@ func Register(c *gin.Context) {
 
 	if res {
 		// successfully register
-		userJson, err := util.StructToJson(user)
+		userJson, err := util.StructToJsonStr(user)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": err.Error(),

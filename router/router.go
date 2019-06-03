@@ -27,7 +27,7 @@ func InitRouter() *gin.Engine {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
 	dname := os.Getenv("GOPATH")
-	filePath := dname + "src/github.com/swsad-dalaotelephone/Server/logs/api.log"
+	filePath := dname + "/src/github.com/swsad-dalaotelephone/Server/storage/logs/api.log"
 	infoFile, _ := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 
 	log.Logger = log.Output(

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/swsad-dalaotelephone/Server/models/task"
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
@@ -28,7 +29,6 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-
 	oldUsers, err := userModel.GetUsersByStrKey("id", newUser.Id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -46,6 +46,18 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(errors.New("can not find user"))
 		return
 	}
+	/* user auth to check user
+	oldUser := c.MustGet("user").(userModel.User)
+	if oldUser.Id != newUser.Id {
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"msg": "invalid argument id",
+			})
+			log.ErrorLog.Println(err)
+			c.Error(err)
+			return
+		}
+	}*/
 
 	// todo: field check
 
@@ -61,5 +73,18 @@ func UpdateProfile(c *gin.Context) {
 		})
 		log.ErrorLog.Println("fail to update profile")
 		c.Error(errors.New("fail to update profile"))
+	}
+
+	// modify "AccepterName" in all acceptance of this user
+	if newUser.NickName != oldUsers[0].NickName {
+		acceptances, err := taskModel.GetAcceptancesByStrKey("accepter_id", oldUsers[0].Id)
+		if err != nil {
+			log.ErrorLog.Println(err)
+		} else {
+			for _, item := range acceptances {
+				item.AccepterName = newUser.NickName
+				taskModel.UpdateAcceptance(item)
+			}
+		}
 	}
 }

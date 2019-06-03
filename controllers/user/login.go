@@ -73,7 +73,7 @@ func Login(c *gin.Context) {
 		log.ErrorLog.Println("fail to generate session token")
 		c.Error(errors.New("fail to generate session token"))
 	} else {
-		userJson, err := util.StructToJson(user)
+		userJson, err := util.StructToJsonStr(user)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": err.Error(),

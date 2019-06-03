@@ -31,7 +31,7 @@ func StopTask(c *gin.Context) {
 	}
 
 	// check task_id exist or not
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -42,7 +42,7 @@ func StopTask(c *gin.Context) {
 	}
 
 	// check publisher_id exist or not
-	users, err := userModel.GetUsersByStrKey("user_id", publisherId)
+	users, err := userModel.GetUsersByStrKey("id", publisherId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),

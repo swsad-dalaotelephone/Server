@@ -31,7 +31,7 @@ func GetSchoolList(c *gin.Context) {
 	}
 
 	if len(schools) > 0 {
-		schoolsJson, err := util.StructToJson(schools)
+		schoolsJson, err := util.StructToJsonStr(schools)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",

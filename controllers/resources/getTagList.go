@@ -31,7 +31,7 @@ func GetTagList(c *gin.Context) {
 	}
 
 	if len(tags) > 0 {
-		tagsJson, err := util.StructToJson(tags)
+		tagsJson, err := util.StructToJsonStr(tags)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",
