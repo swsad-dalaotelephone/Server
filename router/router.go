@@ -73,11 +73,13 @@ func InitRouter() *gin.Engine {
 		taskGroup.POST("/submitTask", auth.AuthMiddleware(), taskController.SubmitTask)
 		taskGroup.GET("/acceptTask", auth.AuthMiddleware(), taskController.AcceptTask)
 		taskGroup.GET("/getRecommendTasks", taskController.GetRecommendTasks)
-		taskGroup.GET("/getPublishedTasks", taskController.GetPublishedTasks)
-		taskGroup.GET("/getAcceptedTasks", taskController.GetAcceptedTasks)
-		taskGroup.GET("/getSubmittedTasks", taskController.GetSubmittedTasks)
+		taskGroup.GET("/getPublishedTasks", auth.AuthMiddleware(), taskController.GetPublishedTasks)
+		taskGroup.GET("/getAcceptedTasks", auth.AuthMiddleware(), taskController.GetAcceptedTasks)
+		taskGroup.GET("/getSubmittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
 		taskGroup.GET("/getTaskDetail", taskController.GetTaskDetail)
 		taskGroup.GET("/quitTask", auth.AuthMiddleware(), taskController.QuitTask)
+		taskGroup.GET("/getStatistics", auth.AuthMiddleware(), taskController.GetStatistics)
+		taskGroup.GET("/downloadStatistics", auth.AuthMiddleware(), taskController.DownloadStatistics)
 	}
 
 	// ad api
