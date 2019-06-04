@@ -24,7 +24,7 @@ type User struct {
 	NickName    string                       `gorm:"column:nick_name; type:varchar(64)" json:"nick_name"`
 	Password    string                       `gorm:"column:password; type:varchar(64)" json:"password"`
 	Phone       string                       `gorm:"column:phone; type:varchar(20); unique_index: phone_idx; not null" json:"phone"`
-	Birthday    time.Time                    `gorm:"column:birtyday" json:"birthday"`
+	Birthday    time.Time                    `gorm:"column:birthday" json:"birthday"`
 	Gender      int                          `gorm:"column:gender" json:"gender"` //male - 1   female  - 2  empty - 0
 	CampusId    int                          `gorm:"column:campus_id" json:"campus_id"`
 	SchoolId    string                       `gorm:"column:school_id" json:"school_id"`

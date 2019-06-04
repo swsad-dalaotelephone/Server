@@ -1,9 +1,9 @@
 package taskModel
 
 import (
+	"encoding/json"
 	"time"
 
-	"github.com/goinggo/mapstructure"
 	. "github.com/swsad-dalaotelephone/Server/database"
 	"github.com/swsad-dalaotelephone/Server/models/common"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
@@ -152,42 +152,37 @@ func GetTaskContent(task Task) (Task, error) {
 }
 
 func SaveContent(task Task) error {
-	if content, err := util.JsonToMap(task.Content); err != nil {
-		log.ErrorLog.Println(err)
-		return err
-	} else {
-		switch task.Type {
-		case "q":
-			var questionnaire Questionnaire
-			if err := mapstructure.Decode(content, &questionnaire); err != nil {
-				log.ErrorLog.Println(err)
-				return err
-			} else {
-				questionnaire.TaskId = task.Id
-				AddQuestionnaire(questionnaire)
-			}
-			break
-		case "d":
-			var dataCollection DataCollection
-			if err := mapstructure.Decode(content, &dataCollection); err != nil {
-				log.ErrorLog.Println(err)
-				return err
-			} else {
-				dataCollection.TaskId = task.Id
-				AddDataCollection(dataCollection)
-			}
-			break
-		case "r":
-			var recruitment Recruitment
-			if err := mapstructure.Decode(content, &recruitment); err != nil {
-				log.ErrorLog.Println(err)
-				return err
-			} else {
-				recruitment.TaskId = task.Id
-				AddRecruitment(recruitment)
-			}
-			break
+	switch task.Type {
+	case "q":
+		var questionnaire Questionnaire
+		if err := json.Unmarshal(task.Content, &questionnaire); err != nil {
+			log.ErrorLog.Println(err)
+			return err
+		} else {
+			questionnaire.TaskId = task.Id
+			AddQuestionnaire(questionnaire)
 		}
+		break
+	case "d":
+		var dataCollection DataCollection
+		if err := json.Unmarshal(task.Content, &dataCollection); err != nil {
+			log.ErrorLog.Println(err)
+			return err
+		} else {
+			dataCollection.TaskId = task.Id
+			AddDataCollection(dataCollection)
+		}
+		break
+	case "r":
+		var recruitment Recruitment
+		if err := json.Unmarshal(task.Content, &recruitment); err != nil {
+			log.ErrorLog.Println(err)
+			return err
+		} else {
+			recruitment.TaskId = task.Id
+			AddRecruitment(recruitment)
+		}
+		break
 	}
 	return nil
 }
