@@ -19,19 +19,16 @@ func GetTaskDetail(c *gin.Context) {
 	taskId := c.Query("task_id")
 
 	// get task
-	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
+	task, err := taskModel.GetTaskWithContentById(taskId)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "can not fetch task list",
+			"msg": "task does not exist",
 		})
-		log.ErrorLog.Println(err)
-		c.Error(err)
-		return
-	}
-
-	if len(tasks) > 0 {
-		tasksJson, err := util.StructToJsonStr(tasks[0])
+		log.ErrorLog.Println("task does not exist")
+		c.Error(errors.New("task does not exist"))
+	} else {
+		tasksJson, err := util.StructToJsonStr(task)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",
@@ -43,12 +40,6 @@ func GetTaskDetail(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"task": tasksJson,
 		})
-		log.InfoLog.Println(taskId, tasks[0].Name, "success")
-	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "task list is empty",
-		})
-		log.ErrorLog.Println("task list is empty")
-		c.Error(errors.New("task list is empty"))
+		log.InfoLog.Println(taskId, task.Name, "success")
 	}
 }

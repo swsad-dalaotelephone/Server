@@ -117,8 +117,11 @@ according to task type, query detail{
 3: recruitment
 }
 */
-func GetTaskContent(task Task) (Task, error) {
-	var err error
+func GetTaskWithContentById(id string) (task Task, err error) {
+	err = DB.Where("id = ?", id).First(&task).Error
+	if err != nil {
+		return task, err
+	}
 	switch task.Type {
 	case "q":
 		var questionnaire Questionnaire
