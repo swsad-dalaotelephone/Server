@@ -18,6 +18,7 @@ const (
 
 type Acceptance struct {
 	Id           string           `gorm:"column:id; type:varchar(36); primary_key; not null" json:"acceptance_id"`
+	Task         Task             `gorm:"foreignkey:TaskId" json:"task"`
 	TaskId       string           `gorm:"column:task_id; type:varchar(36); not null; unique_index:task_accepter_idx; index:task_id_idx" json:"task_id"`
 	AccepterId   string           `gorm:"column:accepter_id; type:varchar(36); not null; unique_index:task_accepter_idx; index:accepter_id_idx" json:"accepter_id"`
 	AccepterName string           `gorm:"column:accepter_name" json:"accepter"`
@@ -57,6 +58,15 @@ func AddAcceptance(acceptance Acceptance) (Acceptance, bool) {
 	DB.Create(&acceptance)
 	res := DB.NewRecord(&acceptance) //return `false` after `acceptance` created
 	return acceptance, !res
+}
+
+/*
+query acceptances by acceper_id
+return: acceptance with task
+*/
+func GetAcceptancesByStrKeyWithTask(key string, value string) (acceptances []Acceptance, err error) {
+	err = DB.Where(key+" = ?", value).Preload("Task").Find(&acceptances).Error
+	return acceptances, err
 }
 
 // query acceptances by string key

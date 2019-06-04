@@ -18,8 +18,8 @@ return: accepted task list
 func GetAcceptedTasks(c *gin.Context) {
 	accepterId := c.Query("accepter_id")
 
-	// get accepted tasks
-	tasks, err := taskModel.GetTasksByStrKey("accepter_id", accepterId)
+	// get accepted acceptances
+	acceptances, err := taskModel.GetAcceptancesByStrKeyWithTask("accepter_id", accepterId)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -30,8 +30,8 @@ func GetAcceptedTasks(c *gin.Context) {
 		return
 	}
 
-	if len(tasks) > 0 {
-		tasksJson, err := util.StructToJsonStr(tasks)
+	if len(acceptances) > 0 {
+		acceptancesJson, err := util.StructToJsonStr(acceptances)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",
@@ -41,9 +41,9 @@ func GetAcceptedTasks(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"tasks": tasksJson,
+			"accepted": acceptancesJson,
 		})
-		log.InfoLog.Println(accepterId, len(tasks), "success")
+		log.InfoLog.Println(accepterId, len(acceptances), "success")
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "task list is empty",
