@@ -56,13 +56,14 @@ func InitRouter() *gin.Engine {
 	userGroup := router.Group("/user")
 	{
 		userGroup.GET("/weApp", userController.WeAppLogin)
-		userGroup.POST("/", userController.Register)
+		userGroup.POST("", userController.Register)
 		userGroup.POST("/session", userController.Login)
 		userGroup.DELETE("/session", auth.AuthMiddleware(), userController.Logout)
 		userGroup.GET("/profile", auth.AuthMiddleware(), userController.GetProfile)
 		userGroup.PUT("/profile", auth.AuthMiddleware(), userController.UpdateProfile)
 		userGroup.PATCH("/password", auth.AuthMiddleware(), userController.ModifyPassword)
 		userGroup.GET("/preferences", userController.GetPreferencesById)
+		userGroup.PUT("/preferences", userController.UpdatePreferences)
 		userGroup.GET("/recommendedTasks", userController.GetRecommendTasks)
 		userGroup.GET("/publishedTasks", auth.AuthMiddleware(), userController.GetPublishedTasks)
 		userGroup.GET("/acceptedTasks", auth.AuthMiddleware(), userController.GetAcceptedTasks)
@@ -71,8 +72,8 @@ func InitRouter() *gin.Engine {
 	// task api
 	taskGroup := router.Group("/task")
 	{
-		taskGroup.POST("/", auth.AuthMiddleware(), taskController.PublishTask)
-		taskGroup.PUT("/", auth.AuthMiddleware(), taskController.UpdateTask)
+		taskGroup.POST("", auth.AuthMiddleware(), taskController.PublishTask)
+		taskGroup.PUT("", auth.AuthMiddleware(), taskController.UpdateTask)
 		taskGroup.GET("/:task_id", taskController.GetTaskDetail)
 		taskGroup.GET("/:task_id/submittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
 		taskGroup.PATCH("/:task_id/status", auth.AuthMiddleware(), taskController.StopTask)

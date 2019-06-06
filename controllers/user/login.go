@@ -22,6 +22,7 @@ else return 400
 func Login(c *gin.Context) {
 	phone := c.PostForm("phone")
 	password := c.PostForm("password")
+
 	//find user
 	users, err := userModel.GetUsersByStrKey("phone", phone)
 	if err != nil {
@@ -32,6 +33,7 @@ func Login(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	// if user is unregistered
 	if len(users) == 0 {
 
@@ -42,6 +44,7 @@ func Login(c *gin.Context) {
 		c.Error(errors.New("phone is unregistered"))
 		return
 	}
+
 	user := users[0]
 	// encrypt password with MD5
 	password = util.MD5(password)
@@ -54,6 +57,7 @@ func Login(c *gin.Context) {
 		c.Error(errors.New("phone or password is incorrect"))
 		return
 	}
+
 	session := sessions.Default(c)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -63,6 +67,7 @@ func Login(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	session.Set("userId", user.Id)
 	err = session.Save()
 	if err != nil {

@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/swsad-dalaotelephone/Server/models/preference"
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
@@ -21,7 +20,7 @@ func UpdatePreferences(c *gin.Context) {
 	user := c.MustGet("user").(userModel.User)
 	preferences := c.PostFormArray("preferences")
 
-	oldPreferences, err := preferenceModel.GetPreferencesByStrKey("user_id", user.Id)
+	oldPreferences, err := userModel.GetPreferencesByStrKey("user_id", user.Id)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -35,7 +34,7 @@ func UpdatePreferences(c *gin.Context) {
 	if len(oldPreferences) > 0 {
 		// delete preferences
 		for _, p := range oldPreferences {
-			err := preferenceModel.DeletePreferenceById(p.Id)
+			err := userModel.DeletePreferenceById(p.Id)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{
 					"msg": err.Error(),
@@ -49,10 +48,10 @@ func UpdatePreferences(c *gin.Context) {
 
 	// add new preferences
 	for _, tag := range preferences {
-		var preference preferenceModel.Preference
+		var preference userModel.Preference
 		preference.UserId = user.Id
 		preference.TagId, _ = strconv.Atoi(tag)
-		preference, _ = preferenceModel.AddPreference(preference)
+		preference, _ = userModel.AddPreference(preference)
 	}
 
 	c.JSON(http.StatusOK, gin.H{

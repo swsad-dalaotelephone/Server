@@ -4,7 +4,6 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/swsad-dalaotelephone/Server/models/preference"
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
@@ -23,7 +22,7 @@ func GetPreferencesById(c *gin.Context) {
 	user := c.MustGet("user").(userModel.User)
 	id := user.Id
 
-	preferences, err := preferenceModel.GetPreferencesByStrKey("user_id", id)
+	preferences, err := userModel.GetPreferencesByStrKey("user_id", id)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
