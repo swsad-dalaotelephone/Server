@@ -13,7 +13,7 @@ import (
 
 /*
 QuitTask : quit task
-require: task_id, accepter_id
+require: task_id, cookie
 return: msg
 */
 func QuitTask(c *gin.Context) {

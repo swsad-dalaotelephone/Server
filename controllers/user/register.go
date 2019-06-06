@@ -11,6 +11,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+Register : register account
+require: phone, password, nick_name, open_id
+return: msg, user
+*/
 func Register(c *gin.Context) {
 	nickName := c.PostForm("nick_name")
 	phone := c.PostForm("phone")

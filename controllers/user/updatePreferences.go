@@ -12,8 +12,8 @@ import (
 
 /*
 UpdatePreferences : get all tag id of user preferences name by user id
-require: user id
-return: tag ids list
+require: cookie
+return: msg
 */
 func UpdatePreferences(c *gin.Context) {
 

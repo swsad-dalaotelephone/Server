@@ -13,7 +13,7 @@ import (
 
 /*
 ModifyPassword : modify password
-require: id, old_pass, new_pass
+require: old_pass, new_pass, cookie
 return: msg
 */
 func ModifyPassword(c *gin.Context) {

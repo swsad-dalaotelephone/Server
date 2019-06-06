@@ -12,7 +12,7 @@ import (
 
 /*
 SubmitTask : submit task
-require: task_id, accepter_id, answer
+require: task_id, answer, cookie
 return: msg
 */
 func SubmitTask(c *gin.Context) {

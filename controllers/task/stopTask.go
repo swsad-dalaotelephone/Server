@@ -13,7 +13,7 @@ import (
 
 /*
 StopTask : stop task
-require: task_id, publisher_id
+require: task_id, cookie
 return: msg
 */
 func StopTask(c *gin.Context) {

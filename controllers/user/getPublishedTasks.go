@@ -14,7 +14,7 @@ import (
 
 /*
 GetPublishedTasks : get published task
-require: publisher_id
+require: cookie
 return: publsihed task list
 */
 func GetPublishedTasks(c *gin.Context) {

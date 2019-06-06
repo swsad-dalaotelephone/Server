@@ -13,7 +13,7 @@ import (
 
 /*
 UpdateTask : update task
-require: task body
+require: task body, cookie
 return: msg
 */
 func UpdateTask(c *gin.Context) {

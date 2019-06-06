@@ -12,7 +12,7 @@ import (
 
 /*
 GetPreferencesById : get all tag id of user preferences name by user id
-require: user id
+require: cookie
 return: tag ids list
 */
 func GetPreferencesById(c *gin.Context) {

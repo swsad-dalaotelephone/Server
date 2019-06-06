@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/swsad-dalaotelephone/Server/models/task"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
 
@@ -13,10 +14,13 @@ import (
 
 /*
 PublishTask : publish task
-require: task body
+require: task body, cookie
 return: msg
 */
 func PublishTask(c *gin.Context) {
+
+	user := c.MustGet("user").(userModel.User)
+	publisherId := user.Id
 
 	var task taskModel.Task
 
@@ -27,6 +31,15 @@ func PublishTask(c *gin.Context) {
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
+		return
+	}
+
+	if publisherId != task.PublisherId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "permission denied",
+		})
+		log.ErrorLog.Println("permission denied")
+		c.Error(errors.New("permission denied"))
 		return
 	}
 

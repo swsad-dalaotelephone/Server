@@ -13,7 +13,7 @@ import (
 
 /*
 AcceptTask : accept task
-require: task_id, accepter_id
+require: task_id, cookie
 return: msg
 */
 func AcceptTask(c *gin.Context) {

@@ -9,7 +9,9 @@ import (
 )
 
 /*
-user logout
+Logout : log out
+require: cookie
+return: msg
 */
 func Logout(c *gin.Context) {
 	session := sessions.Default(c)

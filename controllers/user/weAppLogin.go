@@ -15,10 +15,12 @@ import (
 )
 
 /*
-weapp login
+WeAppLogin : log in wechat app
 if user exist, login auto and return 200 and user infomation
 if user not exist , return 200 and "user is unregistered"
 else return 400
+require: code
+return: msg, user, open_id
 */
 func WeAppLogin(c *gin.Context) {
 	code := c.Query("code")
@@ -34,8 +36,10 @@ func WeAppLogin(c *gin.Context) {
 		c.Error(errors.New("error weapp code"))
 		return
 	}
+
 	//find user
 	users, err := userModel.GetUsersByStrKey("OpenId", res.OpenID)
+
 	// if user is unregistered
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -46,10 +50,12 @@ func WeAppLogin(c *gin.Context) {
 		c.Error(errors.New("user is unregistered"))
 		return
 	}
+
 	user := users[0]
 	session := sessions.Default(c)
 	session.Set("user", user)
 	err = session.Save()
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "fail to generate session token",

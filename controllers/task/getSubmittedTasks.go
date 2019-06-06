@@ -14,7 +14,7 @@ import (
 
 /*
 GetSubmittedTasks : get submitted task
-require: task_id, publisher_id (auth)
+require: task_id, cookie
 return: submitted task list
 */
 func GetSubmittedTasks(c *gin.Context) {

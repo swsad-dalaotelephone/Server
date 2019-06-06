@@ -12,7 +12,7 @@ import (
 
 /*
 VerifyTask : verify task
-require: task_id, publisher_id, accepter_id, result, feedback
+require: task_id, accepter_id, result, feedback, cookie
 return: msg
 */
 func VerifyTask(c *gin.Context) {

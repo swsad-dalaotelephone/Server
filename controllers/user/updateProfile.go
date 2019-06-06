@@ -13,7 +13,7 @@ import (
 
 /*
 UpdateProfile : modify password
-require: user profile body
+require: user profile body, cookie
 return: msg
 */
 func UpdateProfile(c *gin.Context) {

@@ -14,7 +14,7 @@ import (
 
 /*
 GetTaskDetail : get task detail
-require: task_id
+require: task_id, cookie or not
 return: task detail
 */
 func GetTaskDetail(c *gin.Context) {

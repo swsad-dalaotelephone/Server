@@ -13,11 +13,13 @@ import (
 )
 
 /*
-weapp login
+Login :
 if user exist, login auto and return 200 and user infomation
 if user not exist , return 200 and "user is unregistered"
 if password error , return 401 and "Authentication failed"
 else return 400
+require: phone, password
+return: msg, user, cookie
 */
 func Login(c *gin.Context) {
 	phone := c.PostForm("phone")

@@ -12,8 +12,8 @@ import (
 
 /*
 GetRecommendAds : get recommend advertisement list
-require:
-return:
+require: cookie or not
+return: ads
 */
 func GetRecommendAds(c *gin.Context) {
 

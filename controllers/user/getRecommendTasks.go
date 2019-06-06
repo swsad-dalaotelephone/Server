@@ -15,7 +15,7 @@ import (
 
 /*
 GetRecommendTasks : get recommend task
-require: user_id
+require: cookie or not
 return: msg
 */
 func GetRecommendTasks(c *gin.Context) {
