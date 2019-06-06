@@ -28,6 +28,7 @@ func GetProfile(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"msg":  "successfully register",
 		"user": userJson,

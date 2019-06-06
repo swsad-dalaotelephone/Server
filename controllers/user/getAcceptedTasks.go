@@ -11,6 +11,11 @@ import (
 	"github.com/swsad-dalaotelephone/Server/modules/util"
 )
 
+type result struct {
+	acceptance taskModel.Acceptance `json:"acceptance"`
+	task       taskModel.Task       `json:"task"`
+}
+
 /*
 GetAcceptedTasks : get accepted task
 require: cookie
@@ -32,16 +37,14 @@ func GetAcceptedTasks(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-	type Result struct {
-		Acceptance taskModel.Acceptance `json:"acceptance"`
-		Task       taskModel.Task       `json:"task"`
-	}
+
 	if len(acceptances) > 0 {
-		accepted := make([]Result, 0)
+		accepted := make([]result, 0)
 		for _, item := range acceptances {
 			item.Answer = nil
-			accepted = append(accepted, Result{item, item.Task})
+			accepted = append(accepted, result{item, item.Task})
 		}
+
 		acceptedJson, err := util.StructToJsonStr(accepted)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -51,6 +54,7 @@ func GetAcceptedTasks(c *gin.Context) {
 			c.Error(err)
 			return
 		}
+
 		c.JSON(http.StatusOK, gin.H{
 			"accepted": acceptedJson,
 		})

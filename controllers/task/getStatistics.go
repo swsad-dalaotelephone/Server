@@ -14,9 +14,9 @@ import (
 )
 
 type resultItem struct {
-	option_count []int
-	option_name  []string
-	question     string
+	optionCount []int    `json:"option_count"`
+	optionName  []string `json:"option_name"`
+	question    string   `json:"question"`
 }
 
 type result struct {
@@ -138,8 +138,8 @@ func GetStatistics(c *gin.Context) {
 
 		if tempAnswer.Get("type").MustString() == "m" {
 			var item resultItem
-			item.option_count = make([]int, len(options))
-			item.option_name = make([]string, len(options))
+			item.optionCount = make([]int, len(options))
+			item.optionName = make([]string, len(options))
 			item.question = "question"
 			res.statistics = append(res.statistics, item)
 		}
@@ -182,7 +182,7 @@ func GetStatistics(c *gin.Context) {
 				}
 
 				for j := range options {
-					res.statistics[i].option_count[answer.Get("option").GetIndex(j).MustInt()]++
+					res.statistics[i].optionCount[answer.Get("option").GetIndex(j).MustInt()]++
 				}
 			}
 		}

@@ -18,7 +18,7 @@ return: msg
 func UpdatePreferences(c *gin.Context) {
 
 	user := c.MustGet("user").(userModel.User)
-	preferences := c.PostFormArray("preferences")
+	preferences := c.PostFormArray("tag_ids")
 
 	oldPreferences, err := userModel.GetPreferencesByStrKey("user_id", user.Id)
 

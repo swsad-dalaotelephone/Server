@@ -72,6 +72,7 @@ func GetTaskDetail(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	if userId != "" {
 		if acceptance, err := taskModel.GetAcceptanceByTaskAccepterId(taskId, userId); err == nil {
 			acceptanceJson, err := util.StructToJsonStr(acceptance)
