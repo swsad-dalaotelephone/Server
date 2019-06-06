@@ -16,8 +16,11 @@ require: task_id, publisher_id, accepter_id, result, feedback
 return: msg
 */
 func VerifyTask(c *gin.Context) {
-	taskId := c.PostForm("task_id")
-	publisherId := c.PostForm("publisher_id")
+	// taskId := c.PostForm("task_id")
+	// publisherId := c.PostForm("publisher_id")
+	taskId := c.Param("task_id")
+	user := c.MustGet("user").(userModel.User)
+	publisherId := user.Id
 	accepterId := c.PostForm("accepter_id")
 	result := c.PostForm("result")
 	feedback := c.PostForm("feedback")

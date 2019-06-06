@@ -17,8 +17,11 @@ require: task_id, accepter_id
 return: msg
 */
 func AcceptTask(c *gin.Context) {
-	taskId := c.Query("task_id")
-	accepterId := c.Query("accepter_id")
+	// taskId := c.Query("task_id")
+	// accepterId := c.Query("accepter_id")
+	taskId := c.Param("task_id")
+	user := c.MustGet("user").(userModel.User)
+	accepterId := user.Id
 
 	if taskId == "" || accepterId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -40,19 +43,7 @@ func AcceptTask(c *gin.Context) {
 		return
 	}
 
-	// check accepter_id exist or not
-	users, err := userModel.GetUsersByStrKey("id", accepterId)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": err.Error(),
-		})
-		log.ErrorLog.Println(err)
-		c.Error(err)
-		return
-	}
-
-	exist := len(tasks) == 1 && len(users) == 1
-	if !exist {
+	if len(tasks) == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "invalid argument",
 		})
@@ -61,10 +52,31 @@ func AcceptTask(c *gin.Context) {
 		return
 	}
 
+	// check accepter_id exist or not
+	// users, err := userModel.GetUsersByStrKey("id", accepterId)
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{
+	// 		"msg": err.Error(),
+	// 	})
+	// 	log.ErrorLog.Println(err)
+	// 	c.Error(err)
+	// 	return
+	// }
+
+	// if len(users) == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"msg": "invalid argument",
+	// 	})
+	// 	log.ErrorLog.Println("invalid argument")
+	// 	c.Error(errors.New("invalid argument"))
+	// 	return
+	// }
+
 	var acceptance taskModel.Acceptance
 	acceptance.TaskId = taskId
 	acceptance.AccepterId = accepterId
-	acceptance.AccepterName = users[0].NickName
+	// acceptance.AccepterName = users[0].NickName
+	acceptance.AccepterName = user.NickName
 	acceptance.Status = taskModel.StatusAcceptUnsubmitted
 
 	if _, ok := taskModel.AddAcceptance(acceptance); ok {

@@ -17,18 +17,21 @@ require: task_id, accepter_id
 return: msg
 */
 func QuitTask(c *gin.Context) {
-	taskId := c.Query("task_id")
-	accepterId := c.Query("accepter_id")
+	// taskId := c.Query("task_id")
+	// accepterId := c.Query("accepter_id")
+	taskId := c.Param("task_id")
 	session := sessions.Default(c)
-	userId := session.Get("userId")
-	if userId != accepterId {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "invalid user request",
-		})
-		log.ErrorLog.Println("invalid user request")
-		c.Error(errors.New("invalid user request"))
-		return
-	}
+	accepterId := session.Get("userId").(string)
+	// userId := session.Get("userId")
+	// if userId != accepterId {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"msg": "invalid user request",
+	// 	})
+	// 	log.ErrorLog.Println("invalid user request")
+	// 	c.Error(errors.New("invalid user request"))
+	// 	return
+	// }
+
 	if taskId == "" || accepterId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",

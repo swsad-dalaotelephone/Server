@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/swsad-dalaotelephone/Server/models/task"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,9 @@ require: task body
 return: msg
 */
 func UpdateTask(c *gin.Context) {
+
+	user := c.MustGet("user").(userModel.User)
+	publisherId := user.Id
 
 	var newTask taskModel.Task
 
@@ -45,6 +49,15 @@ func UpdateTask(c *gin.Context) {
 		})
 		log.ErrorLog.Println("can not find task")
 		c.Error(errors.New("can not find task"))
+		return
+	}
+
+	if oldTasks[0].Id != publisherId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "permission denied",
+		})
+		log.ErrorLog.Println("permission denied")
+		c.Error(errors.New("permission denied"))
 		return
 	}
 

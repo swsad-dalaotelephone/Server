@@ -17,9 +17,13 @@ return: msg
 */
 func SubmitTask(c *gin.Context) {
 
-	taskId := c.Query("task_id")
-	accepterId := c.Query("accepter_id")
-	answer := c.Query("answer")
+	// taskId := c.Query("task_id")
+	// accepterId := c.Query("accepter_id")
+	// answer := c.Query("answer")
+	taskId := c.Param("task_id")
+	user := c.MustGet("user").(userModel.User)
+	accepterId := user.Id
+	answer := c.PostForm("answer")
 
 	if taskId == "" || accepterId == "" || answer == "" {
 		c.JSON(http.StatusBadRequest, gin.H{

@@ -30,7 +30,8 @@ return: link
 */
 func GetStatistics(c *gin.Context) {
 
-	taskId := c.Query("task_id")
+	// taskId := c.Query("task_id")
+	taskId := c.Param("task_id")
 	user := c.MustGet("user").(userModel.User)
 
 	if taskId == "" {

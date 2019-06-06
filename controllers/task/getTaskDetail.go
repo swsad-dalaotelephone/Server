@@ -18,7 +18,8 @@ require: task_id
 return: task detail
 */
 func GetTaskDetail(c *gin.Context) {
-	taskId := c.Query("task_id")
+	// taskId := c.Query("task_id")
+	taskId := c.Param("task_id")
 	session := sessions.Default(c)
 	id := session.Get("userId")
 	userId := ""
@@ -29,6 +30,7 @@ func GetTaskDetail(c *gin.Context) {
 			userId = ""
 		}
 	}
+
 	// get task
 	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 
@@ -40,6 +42,7 @@ func GetTaskDetail(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	//tasks is empty
 	if len(tasks) == 0 {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -48,6 +51,7 @@ func GetTaskDetail(c *gin.Context) {
 		log.ErrorLog.Println("task does not exist")
 		c.Error(errors.New("task does not exist"))
 	}
+
 	// get test content(questionnaire, recruitment, dataCollection)
 	task, err := taskModel.GetTaskContent(tasks[0])
 	if err != nil {
