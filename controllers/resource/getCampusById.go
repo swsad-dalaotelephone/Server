@@ -20,7 +20,8 @@ return: campus name
 func GetCampusById(c *gin.Context) {
 
 	// get campus id
-	id := c.Query("campus_id")
+	// id := c.Query("campus_id")
+	id := c.Param("campus_id")
 
 	iid, _ := strconv.Atoi(id)
 	campuses, err := campusModel.GetCampusesByIntKey("id", iid)

@@ -19,7 +19,8 @@ return: school name
 func GetSchoolById(c *gin.Context) {
 
 	// get school id
-	id := c.Query("school_id")
+	// id := c.Query("school_id")
+	id := c.Param("school_id")
 
 	iid, _ := strconv.Atoi(id)
 	schools, err := schoolModel.GetSchoolsByIntKey("id", iid)

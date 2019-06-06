@@ -1,4 +1,4 @@
-package taskController
+package userController
 
 import (
 	"errors"

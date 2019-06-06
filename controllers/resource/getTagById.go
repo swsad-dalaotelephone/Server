@@ -19,7 +19,8 @@ return: tag names
 func GetTagById(c *gin.Context) {
 
 	// get tag id
-	id := c.Query("tag_id")
+	// id := c.Query("tag_id")
+	id := c.Param("tag_id")
 
 	iid, _ := strconv.Atoi(id)
 	tags, err := tagModel.GetTagsByIntKey("id", iid)

@@ -1,4 +1,4 @@
-package taskController
+package userController
 
 import (
 	"errors"
@@ -12,16 +12,16 @@ import (
 )
 
 /*
-GetPublishedTasks : get published task
-require: publisher_id
-return: publsihed task list
+GetRecommendTasks : get recommend task
+require: user_id
+return: msg
 */
-func GetPublishedTasks(c *gin.Context) {
+func GetRecommendTasks(c *gin.Context) {
 
-	publisherId := c.Query("publisher_id")
+	userId := c.Query("user_id")
 
-	// get published tasks
-	tasks, err := taskModel.GetTasksByStrKey("publisher_id", publisherId)
+	// get undo tasks
+	tasks, err := taskModel.GetUnfinishedTasks()
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -45,7 +45,7 @@ func GetPublishedTasks(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"tasks": tasksJson,
 		})
-		log.InfoLog.Println(publisherId, len(tasks), "success")
+		log.InfoLog.Println(userId, len(tasks), "success")
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "task list is empty",
