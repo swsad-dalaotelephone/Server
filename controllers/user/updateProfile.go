@@ -18,6 +18,9 @@ return: msg
 */
 func UpdateProfile(c *gin.Context) {
 
+	user := c.MustGet("user").(userModel.User)
+	id := user.Id
+
 	var newUser userModel.User
 
 	err := c.ShouldBindJSON(&newUser)
@@ -29,7 +32,9 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-	oldUsers, err := userModel.GetUsersByStrKey("id", newUser.Id)
+	newUser.Id = id
+
+	oldUsers, err := userModel.GetUsersByStrKey("id", id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -38,6 +43,7 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	if len(oldUsers) == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "can not find user",
@@ -46,18 +52,19 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(errors.New("can not find user"))
 		return
 	}
-	/* user auth to check user
+
+	// user auth to check user
 	oldUser := c.MustGet("user").(userModel.User)
-	if oldUser.Id != newUser.Id {
+	if oldUser.Id != id {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
-				"msg": "invalid argument id",
+				"msg": "permission denied",
 			})
-			log.ErrorLog.Println(err)
-			c.Error(err)
+			log.ErrorLog.Println("permission denied")
+			c.Error(errors.New("permission denied"))
 			return
 		}
-	}*/
+	}
 
 	// todo: field check
 

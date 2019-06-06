@@ -13,7 +13,7 @@ import (
 /*
 GetProile : get user profile
 require: cookie
-return: tag ids list
+return: user
 */
 func GetProfile(c *gin.Context) {
 

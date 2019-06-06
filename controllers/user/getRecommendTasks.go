@@ -4,7 +4,9 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/swsad-dalaotelephone/Server/models/task"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
 
@@ -18,7 +20,17 @@ return: msg
 */
 func GetRecommendTasks(c *gin.Context) {
 
-	userId := c.Query("user_id")
+	// userId := c.Query("user_id")
+	session := sessions.Default(c)
+	id := session.Get("userId")
+	userId := ""
+	if id != nil {
+		userId = id.(string)
+		users, _ := userModel.GetUsersByStrKey("id", userId)
+		if len(users) == 0 {
+			userId = ""
+		}
+	}
 
 	// get undo tasks
 	tasks, err := taskModel.GetUnfinishedTasks()

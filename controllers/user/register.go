@@ -16,6 +16,7 @@ func Register(c *gin.Context) {
 	phone := c.PostForm("phone")
 	password := c.PostForm("password")
 	openId := c.DefaultPostForm("open_id", "")
+
 	//check phone is not used
 	users, err := userModel.GetUsersByStrKey("phone", phone)
 	if err != nil {
@@ -26,6 +27,7 @@ func Register(c *gin.Context) {
 		c.Error(err)
 		return
 	}
+
 	if len(users) != 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "phone is registered",
@@ -34,10 +36,12 @@ func Register(c *gin.Context) {
 		c.Error(errors.New("phone is registered"))
 		return
 	}
+
 	// create new user
 	user := userModel.User{}
 	user.OpenId = openId
 	user.NickName = nickName
+
 	// encrypt password with MD5
 	password = util.MD5(password)
 	user.Password = password

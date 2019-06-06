@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/swsad-dalaotelephone/Server/models/preference"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +19,9 @@ return: tag ids list
 func GetPreferencesById(c *gin.Context) {
 
 	// get user id
-	id := c.Query("user_id")
+	// id := c.Query("user_id")
+	user := c.MustGet("user").(userModel.User)
+	id := user.Id
 
 	preferences, err := preferenceModel.GetPreferencesByStrKey("user_id", id)
 

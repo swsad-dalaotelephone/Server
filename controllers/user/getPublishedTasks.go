@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/swsad-dalaotelephone/Server/models/task"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
 
@@ -18,7 +19,9 @@ return: publsihed task list
 */
 func GetPublishedTasks(c *gin.Context) {
 
-	publisherId := c.Query("publisher_id")
+	// publisherId := c.Query("publisher_id")
+	user := c.MustGet("user").(userModel.User)
+	publisherId := user.Id
 
 	// get published tasks
 	tasks, err := taskModel.GetTasksByStrKey("publisher_id", publisherId)

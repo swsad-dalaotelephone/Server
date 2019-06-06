@@ -18,7 +18,9 @@ return: msg
 */
 func ModifyPassword(c *gin.Context) {
 
-	id := c.PostForm("id")
+	// id := c.PostForm("id")
+	user := c.MustGet("user").(userModel.User)
+	id := user.Id
 	old_pass := c.PostForm("old_pass")
 	new_pass := c.PostForm("new_pass")
 
