@@ -1,44 +1,43 @@
-package resourcesController
+package resourceController
 
 import (
 	"errors"
 	"net/http"
-
 	"strconv"
 
-	"github.com/swsad-dalaotelephone/Server/models/campus"
+	"github.com/swsad-dalaotelephone/Server/models/school"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
 	"github.com/gin-gonic/gin"
 )
 
 /*
-GetCampusById : get campus name by campus id
-require: campus id
-return: campus name
+GetSchoolById : get school name by school id
+require: school id
+return: school name
 */
-func GetCampusById(c *gin.Context) {
+func GetSchoolById(c *gin.Context) {
 
-	// get campus id
-	id := c.Query("campus_id")
+	// get school id
+	id := c.Query("school_id")
 
 	iid, _ := strconv.Atoi(id)
-	campuses, err := campusModel.GetCampusesByIntKey("id", iid)
+	schools, err := schoolModel.GetSchoolsByIntKey("id", iid)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "can not fetch campus list",
+			"msg": "can not fetch school list",
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
 		return
 	}
 
-	if len(campuses) > 0 {
+	if len(schools) > 0 {
 		c.JSON(http.StatusOK, gin.H{
-			"campus_name": campuses[0].Name,
+			"school_name": schools[0].Name,
 		})
-		log.InfoLog.Println(id, campuses[0].Name, "success")
+		log.InfoLog.Println(id, schools[0].Name, "success")
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "invalid id",

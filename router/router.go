@@ -6,7 +6,7 @@ import (
 
 	"github.com/swsad-dalaotelephone/Server/config"
 	"github.com/swsad-dalaotelephone/Server/controllers/ad"
-	"github.com/swsad-dalaotelephone/Server/controllers/resources"
+	"github.com/swsad-dalaotelephone/Server/controllers/resource"
 	"github.com/swsad-dalaotelephone/Server/controllers/task"
 	"github.com/swsad-dalaotelephone/Server/controllers/user"
 	"github.com/swsad-dalaotelephone/Server/middlewares/auth"
@@ -55,49 +55,50 @@ func InitRouter() *gin.Engine {
 	// user api
 	userGroup := router.Group("/user")
 	{
-		userGroup.GET("/loginWeApp", userController.WeAppLogin)
-		userGroup.POST("/login", userController.Login)
-		userGroup.POST("/register", userController.Register)
-		userGroup.GET("/logout", auth.AuthMiddleware(), userController.Logout)
-		userGroup.POST("/updateProfile", auth.AuthMiddleware(), userController.UpdateProfile)
-		userGroup.POST("/modifyPassword", auth.AuthMiddleware(), userController.ModifyPassword)
+		userGroup.GET("/weApp", userController.WeAppLogin)
+		userGroup.POST("/", userController.Register)
+		userGroup.POST("/session", userController.Login)
+		userGroup.DELETE("/session", auth.AuthMiddleware(), userController.Logout)
+		userGroup.GET("/profile", auth.AuthMiddleware(), userController.GetProfile)
+		userGroup.PUT("/profile", auth.AuthMiddleware(), userController.UpdateProfile)
+		userGroup.PATCH("/password", auth.AuthMiddleware(), userController.ModifyPassword)
+		userGroup.GET("/preferences", userController.GetPreferencesById)
 	}
 
 	// task api
 	taskGroup := router.Group("/task")
 	{
-		taskGroup.POST("/publishTask", auth.AuthMiddleware(), taskController.PublishTask)
-		taskGroup.GET("/stopTask", auth.AuthMiddleware(), taskController.StopTask)
-		taskGroup.POST("/verifyTask", auth.AuthMiddleware(), taskController.VerifyTask)
-		taskGroup.POST("/updateTask", auth.AuthMiddleware(), taskController.UpdateTask)
-		taskGroup.POST("/submitTask", auth.AuthMiddleware(), taskController.SubmitTask)
-		taskGroup.GET("/acceptTask", auth.AuthMiddleware(), taskController.AcceptTask)
-		taskGroup.GET("/getRecommendTasks", taskController.GetRecommendTasks)
-		taskGroup.GET("/getPublishedTasks", auth.AuthMiddleware(), taskController.GetPublishedTasks)
-		taskGroup.GET("/getAcceptedTasks", auth.AuthMiddleware(), taskController.GetAcceptedTasks)
-		taskGroup.GET("/getSubmittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
-		taskGroup.GET("/getTaskDetail", taskController.GetTaskDetail)
-		taskGroup.GET("/quitTask", auth.AuthMiddleware(), taskController.QuitTask)
-		taskGroup.GET("/getStatistics", auth.AuthMiddleware(), taskController.GetStatistics)
-		taskGroup.GET("/downloadStatistics", auth.AuthMiddleware(), taskController.DownloadStatistics)
+		taskGroup.POST("/", auth.AuthMiddleware(), taskController.PublishTask)
+		taskGroup.PUT("/updateTask", auth.AuthMiddleware(), taskController.UpdateTask)
+		taskGroup.GET("/recommendedTasks", taskController.GetRecommendTasks)
+		taskGroup.GET("/publishedTasks", auth.AuthMiddleware(), taskController.GetPublishedTasks)
+		taskGroup.GET("/acceptedTasks", auth.AuthMiddleware(), taskController.GetAcceptedTasks)
+		taskGroup.GET("/:task_id", taskController.GetTaskDetail)
+		taskGroup.GET("/:task_id/submittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
+		taskGroup.PATCH("/:task_id/status", auth.AuthMiddleware(), taskController.StopTask)
+		taskGroup.GET("/:task_id/statistic", auth.AuthMiddleware(), taskController.GetStatistics)
+		taskGroup.GET("/:task_id/statistic/downloadLink", auth.AuthMiddleware(), taskController.DownloadStatistics)
+		taskGroup.POST("/:task_id/acceptance", auth.AuthMiddleware(), taskController.AcceptTask)
+		taskGroup.DELETE("/:task_id/acceptance", auth.AuthMiddleware(), taskController.QuitTask)
+		taskGroup.PATCH("/:task_id/acceptance/answer", auth.AuthMiddleware(), taskController.SubmitTask)
+		taskGroup.PATCH("/:task_id/acceptance/result", auth.AuthMiddleware(), taskController.VerifyTask)
 	}
 
 	// ad api
 	adGroup := router.Group("/ad")
 	{
-		adGroup.GET("/getRecommendAds", adController.GetRecommendAds)
+		adGroup.GET("/recommendedAds", adController.GetRecommendAds)
 	}
 
-	// resources api
-	resourcesGroup := router.Group("resources")
+	// resource api
+	resourcesGroup := router.Group("resource")
 	{
-		resourcesGroup.GET("/getSchoolById", resourcesController.GetSchoolById)
-		resourcesGroup.GET("/getCampusById", resourcesController.GetCampusById)
-		resourcesGroup.GET("/getPreferencesById", resourcesController.GetPreferencesById)
-		resourcesGroup.GET("/getTagById", resourcesController.GetTagById)
-		resourcesGroup.GET("/getSchoolList", resourcesController.GetSchoolList)
-		resourcesGroup.GET("/getCampusList", resourcesController.GetCampusList)
-		resourcesGroup.GET("/getTagList", resourcesController.GetTagList)
+		resourcesGroup.GET("/school/:school_id", resourceController.GetSchoolById)
+		resourcesGroup.GET("/campus/:campus_id", resourceController.GetCampusById)
+		resourcesGroup.GET("/tag/:tag_id", resourceController.GetTagById)
+		resourcesGroup.GET("/schools", resourceController.GetSchoolList)
+		resourcesGroup.GET("/campuses", resourceController.GetCampusList)
+		resourcesGroup.GET("/tags", resourceController.GetTagList)
 	}
 
 	return router

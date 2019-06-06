@@ -1,43 +1,44 @@
-package resourcesController
+package resourceController
 
 import (
 	"errors"
 	"net/http"
+
 	"strconv"
 
-	"github.com/swsad-dalaotelephone/Server/models/tag"
+	"github.com/swsad-dalaotelephone/Server/models/campus"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 
 	"github.com/gin-gonic/gin"
 )
 
 /*
-GetTagById : get tag name by tag id
-require: tag id
-return: tag names
+GetCampusById : get campus name by campus id
+require: campus id
+return: campus name
 */
-func GetTagById(c *gin.Context) {
+func GetCampusById(c *gin.Context) {
 
-	// get tag id
-	id := c.Query("tag_id")
+	// get campus id
+	id := c.Query("campus_id")
 
 	iid, _ := strconv.Atoi(id)
-	tags, err := tagModel.GetTagsByIntKey("id", iid)
+	campuses, err := campusModel.GetCampusesByIntKey("id", iid)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "can not fetch tag list",
+			"msg": "can not fetch campus list",
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
 		return
 	}
 
-	if len(tags) > 0 {
+	if len(campuses) > 0 {
 		c.JSON(http.StatusOK, gin.H{
-			"tag_name": tags[0].Name,
+			"campus_name": campuses[0].Name,
 		})
-		log.InfoLog.Println(id, tags[0].Name, "success")
+		log.InfoLog.Println(id, campuses[0].Name, "success")
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "invalid id",

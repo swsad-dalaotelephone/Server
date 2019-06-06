@@ -1,4 +1,4 @@
-package resourcesController
+package userController
 
 import (
 	"errors"
