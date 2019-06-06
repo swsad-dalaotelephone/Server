@@ -18,7 +18,7 @@ const (
 
 type Acceptance struct {
 	Id           string           `gorm:"column:id; type:varchar(36); primary_key; not null" json:"acceptance_id"`
-	Task         Task             `gorm:"foreignkey:TaskId" json:"task"`
+	Task         Task             `gorm:"foreignkey:TaskId" json:"-"`
 	TaskId       string           `gorm:"column:task_id; type:varchar(36); not null; unique_index:task_accepter_idx; index:task_id_idx" json:"task_id"`
 	AccepterId   string           `gorm:"column:accepter_id; type:varchar(36); not null; unique_index:task_accepter_idx; index:accepter_id_idx" json:"accepter_id"`
 	AccepterName string           `gorm:"column:accepter_name" json:"accepter"`

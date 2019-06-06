@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/swsad-dalaotelephone/Server/models/task"
+	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
 	"github.com/swsad-dalaotelephone/Server/modules/util"
 )
@@ -16,10 +17,10 @@ require: accepter_id
 return: accepted task list
 */
 func GetAcceptedTasks(c *gin.Context) {
-	accepterId := c.Query("accepter_id")
-
+	//accepterId := c.Query("accepter_id")
+	user := c.MustGet("user").(userModel.User)
 	// get accepted acceptances
-	acceptances, err := taskModel.GetAcceptancesByStrKeyWithTask("accepter_id", accepterId)
+	acceptances, err := taskModel.GetAcceptancesByStrKeyWithTask("accepter_id", user.Id)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -29,9 +30,17 @@ func GetAcceptedTasks(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-
+	type Result struct {
+		Acceptance taskModel.Acceptance `json:"acceptance"`
+		Task       taskModel.Task       `json:"task"`
+	}
 	if len(acceptances) > 0 {
-		acceptancesJson, err := util.StructToJsonStr(acceptances)
+		accepted := make([]Result, 0)
+		for _, item := range acceptances {
+			item.Answer = nil
+			accepted = append(accepted, Result{item, item.Task})
+		}
+		acceptedJson, err := util.StructToJsonStr(accepted)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "json convert error",
@@ -41,9 +50,9 @@ func GetAcceptedTasks(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"accepted": acceptancesJson,
+			"accepted": acceptedJson,
 		})
-		log.InfoLog.Println(accepterId, len(acceptances), "success")
+		log.InfoLog.Println(user.Id, len(accepted), "success")
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "task list is empty",

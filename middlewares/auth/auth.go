@@ -15,7 +15,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		session := sessions.Default(c)
 		userId := session.Get("userId")
 		if userId == nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"msg": "invalid session token",
 			})
 			c.Error(errors.New("invalid session token"))
@@ -24,7 +24,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			id := userId.(string)
 			users, _ := userModel.GetUsersByStrKey("id", id)
 			if len(users) == 0 {
-				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 					"msg": "invalid session token",
 				})
 				c.Error(errors.New("invalid session token"))
