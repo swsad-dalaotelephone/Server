@@ -12,8 +12,8 @@ import (
 )
 
 type result struct {
-	acceptance taskModel.Acceptance `json:"acceptance"`
-	task       taskModel.Task       `json:"task"`
+	Acceptance taskModel.Acceptance `json:"acceptance"`
+	Task       taskModel.Task       `json:"task"`
 }
 
 /*
