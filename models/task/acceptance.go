@@ -23,7 +23,7 @@ type Acceptance struct {
 	AccepterId   string           `gorm:"column:accepter_id; type:varchar(36); not null; unique_index:task_accepter_idx; index:accepter_id_idx" json:"accepter_id"`
 	AccepterName string           `gorm:"column:accepter_name" json:"accepter"`
 	Answer       commonModel.JSON `gorm:"column:answer" sql:"type:json" json:"answer"`
-	Status       int              `gorm:"column:status; default:0" json:"status"`
+	Status       int              `gorm:"column:status; default:0; index:status_idx" json:"status"`
 	Feedback     string           `gorm:"column:feedback; type:text" json:"feedback"`
 	CreatedAt    time.Time        `gorm:"column:created_at" json:"-"`
 	UpdatedAt    time.Time        `gorm:"column:updated_at" json:"-"`
@@ -105,3 +105,7 @@ func DeleteAcceptanceById(id string) error {
 	err := DB.Where("id = ?", id).Delete(Acceptance{}).Error
 	return err
 }
+
+/*
+get task status
+*/

@@ -34,7 +34,10 @@
 		"Host"		: "127.0.0.1",
 		"Port"		: 6379,
 		"Password"	: "",
-		"SessionKey"	: "baobaozhuan_session_secret"
+		"SessionKey"	: "baobaozhuan_session_secret",
+		"MaxIdle" :30,
+		"MaxActive": 30,
+		"IdleTimeout":200	
 	},
 	"cookie": {
 		"Name"	:"baobaozhuan_cookie"

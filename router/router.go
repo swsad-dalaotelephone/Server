@@ -1,48 +1,23 @@
 package router
 
 import (
-	"os"
-	"time"
-
 	"github.com/swsad-dalaotelephone/Server/config"
 	"github.com/swsad-dalaotelephone/Server/controllers/ad"
 	"github.com/swsad-dalaotelephone/Server/controllers/resource"
 	"github.com/swsad-dalaotelephone/Server/controllers/task"
 	"github.com/swsad-dalaotelephone/Server/controllers/user"
 	"github.com/swsad-dalaotelephone/Server/middlewares/auth"
+	"github.com/swsad-dalaotelephone/Server/middlewares/logger"
 	"github.com/swsad-dalaotelephone/Server/middlewares/session"
 
-	"github.com/gin-contrib/logger"
 	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 )
 
 //set routers
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	// add logger middleware
-	zerolog.SetGlobalLevel(zerolog.InfoLevel)
-	if gin.IsDebugging() {
-		zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	}
-	dname := os.Getenv("GOPATH")
-	filePath := dname + "/src/github.com/swsad-dalaotelephone/Server/storage/logs/api.log"
-	infoFile, _ := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-
-	log.Logger = log.Output(
-		zerolog.ConsoleWriter{
-			Out:        infoFile,
-			TimeFormat: time.RFC3339,
-			NoColor:    false,
-		},
-	)
-
-	subLog := zerolog.New(infoFile).With().Timestamp().Logger()
-	router.Use(logger.SetLogger(logger.Config{
-		Logger: &subLog,
-		UTC:    true,
-	}))
+	router.Use(logger.Logger())
 	// set recovery middleware
 	router.Use(gin.Recovery())
 	// add session middleware

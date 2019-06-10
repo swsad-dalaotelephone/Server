@@ -97,9 +97,9 @@ func VerifyTask(c *gin.Context) {
 	}
 
 	if result == "true" {
-		acceptance.Status = 3
+		acceptance.Status = taskModel.StatusAcceptFinished
 	} else {
-		acceptance.Status = 2
+		acceptance.Status = taskModel.StatusAcceptUnqualified
 	}
 	acceptance.Feedback = feedback
 
