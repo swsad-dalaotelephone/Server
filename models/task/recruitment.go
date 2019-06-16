@@ -16,8 +16,8 @@ const (
 type Recruitment struct {
 	TaskId          string           `gorm:"column:task_id; type:varchar(36); primary_key; not null" json:"task_id"`
 	Description     string           `gorm:"column:description; type:text" json:"recruit_des"`
-	StartTime       time.Time        `gorm:"column:start_time" json:"start_time"`
-	EndTime         time.Time        `gorm:"column:end_time" json:"end_time"`
+	StartTime       string           `gorm:"column:start_time" json:"start_time"`
+	EndTime         string           `gorm:"column:end_time" json:"end_time"`
 	Location        string           `gorm:"column:location" json:"location"`
 	ParticipantInfo commonModel.JSON `gorm:"column:participant_info" sql:"type:json" json:"participant_info"`
 	CreatedAt       time.Time        `gorm:"column:created_at" json:"-"`
