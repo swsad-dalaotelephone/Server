@@ -34,14 +34,7 @@ func PublishTask(c *gin.Context) {
 		return
 	}
 
-	if publisherId != task.PublisherId {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "permission denied",
-		})
-		log.ErrorLog.Println("permission denied")
-		c.Error(errors.New("permission denied"))
-		return
-	}
+	task.PublisherId = publisherId
 
 	// todo: field check
 
