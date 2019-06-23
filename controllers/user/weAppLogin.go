@@ -38,7 +38,7 @@ func WeAppLogin(c *gin.Context) {
 	}
 
 	//find user
-	users, err := userModel.GetUsersByStrKey("OpenId", res.OpenID)
+	users, err := userModel.GetUsersByStrKey("open_id", res.OpenID)
 
 	// if user is unregistered
 	if len(users) == 0 {
