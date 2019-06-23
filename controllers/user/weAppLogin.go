@@ -53,9 +53,8 @@ func WeAppLogin(c *gin.Context) {
 
 	user := users[0]
 	session := sessions.Default(c)
-	session.Set("user", user)
+	session.Set("userId", user.Id)
 	err = session.Save()
-
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "fail to generate session token",

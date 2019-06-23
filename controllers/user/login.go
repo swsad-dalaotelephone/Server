@@ -61,15 +61,6 @@ func Login(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "json conver error",
-		})
-		log.ErrorLog.Println(err)
-		c.Error(err)
-		return
-	}
-
 	session.Set("userId", user.Id)
 	err = session.Save()
 	if err != nil {
