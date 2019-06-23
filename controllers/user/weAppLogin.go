@@ -43,8 +43,8 @@ func WeAppLogin(c *gin.Context) {
 	// if user is unregistered
 	if len(users) == 0 {
 		c.JSON(http.StatusOK, gin.H{
-			"msg":    "user is unregistered",
-			"openId": res.OpenID,
+			"msg":     "user is unregistered",
+			"open_id": res.OpenID,
 		})
 		log.ErrorLog.Println("user is unregistered")
 		c.Error(errors.New("user is unregistered"))
