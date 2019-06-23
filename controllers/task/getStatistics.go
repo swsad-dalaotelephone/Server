@@ -13,14 +13,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type resultItem struct {
-	optionCount []int    `json:"option_count"`
-	optionName  []string `json:"option_name"`
-	question    string   `json:"question"`
+type ResultItem struct {
+	OptionCount []int    `json:"option_count"`
+	OptionName  []string `json:"option_name"`
+	Question    string   `json:"question"`
 }
 
 type result struct {
-	statistics []resultItem
+	statistics []ResultItem
 }
 
 /*
@@ -137,10 +137,10 @@ func GetStatistics(c *gin.Context) {
 		}
 
 		if tempAnswer.Get("type").MustString() == "m" {
-			var item resultItem
-			item.optionCount = make([]int, len(options))
-			item.optionName = make([]string, len(options))
-			item.question = "question"
+			var item ResultItem
+			item.OptionCount = make([]int, len(options))
+			item.OptionName = make([]string, len(options))
+			item.Question = "question"
 			res.statistics = append(res.statistics, item)
 		}
 	}
@@ -182,7 +182,7 @@ func GetStatistics(c *gin.Context) {
 				}
 
 				for j := range options {
-					res.statistics[i].optionCount[answer.Get("option").GetIndex(j).MustInt()]++
+					res.statistics[i].OptionCount[answer.Get("option").GetIndex(j).MustInt()]++
 				}
 			}
 		}

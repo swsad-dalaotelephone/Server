@@ -2,8 +2,8 @@ package config
 
 type ServerConfigType struct {
 	Debug         bool   `json:"Debug"`
+	FilePath      string `json:"FilePath"`
 	ImgPath       string `json:"ImgPath"`
-	UploadImgDir  string `json:"UploadImgDir"`
 	Port          int    `json:"Port"`
 	SessionID     string `json:"SessionID"`
 	MaxOrder      int    `json:"MaxOrder"`
