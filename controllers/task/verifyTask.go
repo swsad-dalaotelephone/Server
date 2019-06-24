@@ -35,18 +35,7 @@ func VerifyTask(c *gin.Context) {
 	}
 
 	// check task_id exist or not
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": err.Error(),
-		})
-		log.ErrorLog.Println(err)
-		c.Error(err)
-		return
-	}
-
-	// check publisher_id exist or not
-	publishers, err := userModel.GetUsersByStrKey("user_id", publisherId)
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -57,7 +46,7 @@ func VerifyTask(c *gin.Context) {
 	}
 
 	// check accepter_id exist or not
-	accepters, err := userModel.GetUsersByStrKey("user_id", accepterId)
+	accepters, err := userModel.GetUsersByStrKey("id", accepterId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -67,7 +56,7 @@ func VerifyTask(c *gin.Context) {
 		return
 	}
 
-	exist := len(tasks) == 1 && len(publishers) == 1 && len(accepters) == 1
+	exist := len(tasks) == 1 && len(accepters) == 1
 	if !exist {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "invalid argument",
@@ -87,7 +76,7 @@ func VerifyTask(c *gin.Context) {
 		return
 	}
 	// todo check acceptance invalid or not
-	if acceptance.TaskId == "" {
+	if acceptance.Id == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "can not find acceptance record",
 		})

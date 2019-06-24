@@ -33,7 +33,7 @@ func UpdateTask(c *gin.Context) {
 		return
 	}
 
-	oldTasks, err := taskModel.GetTasksByStrKey("task_id", newTask.Id)
+	oldTasks, err := taskModel.GetTasksByStrKey("id", newTask.Id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),

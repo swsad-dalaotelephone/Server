@@ -105,7 +105,3 @@ func DeleteAcceptanceById(id string) error {
 	err := DB.Where("id = ?", id).Delete(Acceptance{}).Error
 	return err
 }
-
-/*
-get task status
-*/

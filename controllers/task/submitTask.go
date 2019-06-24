@@ -33,9 +33,8 @@ func SubmitTask(c *gin.Context) {
 		c.Error(errors.New("missing argument"))
 		return
 	}
-
-	// check task_id exist or not
-	tasks, err := taskModel.GetTasksByStrKey("task_id", taskId)
+	// check task exist and keep running
+	tasks, err := taskModel.GetTasksByStrKey("id", taskId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
@@ -44,25 +43,22 @@ func SubmitTask(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-
-	// check accepter_id exist or not
-	users, err := userModel.GetUsersByStrKey("user_id", accepterId)
-	if err != nil {
+	//exist
+	if len(tasks) == 0 {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": err.Error(),
+			"msg": "task not exist",
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
 		return
 	}
-
-	exist := len(tasks) == 1 && len(users) == 1
-	if !exist {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "invalid argument",
+	//running
+	if tasks[0].Status != taskModel.StatusTaskRunning {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "task isn't running",
 		})
-		log.ErrorLog.Println("invalid argument")
-		c.Error(errors.New("invalid argument"))
+		log.ErrorLog.Println(err)
+		c.Error(err)
 		return
 	}
 
@@ -76,7 +72,7 @@ func SubmitTask(c *gin.Context) {
 		return
 	}
 	// todo check acceptance invalid or not
-	if acceptance.Id != "" {
+	if acceptance.Id == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "can not find acceptance record",
 		})
