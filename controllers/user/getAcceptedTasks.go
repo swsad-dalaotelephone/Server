@@ -1,7 +1,6 @@
 package userController
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -38,32 +37,24 @@ func GetAcceptedTasks(c *gin.Context) {
 		return
 	}
 
-	if len(acceptances) > 0 {
-		accepted := make([]result, 0)
-		for _, item := range acceptances {
-			item.Answer = nil
-			accepted = append(accepted, result{item, item.Task})
-		}
-
-		acceptedJson, err := util.StructToJsonStr(accepted)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": "json convert error",
-			})
-			log.ErrorLog.Println(err)
-			c.Error(err)
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{
-			"accepted": acceptedJson,
-		})
-		log.InfoLog.Println(accepterId, len(accepted), "success")
-	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "task list is empty",
-		})
-		log.ErrorLog.Println("task list is empty")
-		c.Error(errors.New("task list is empty"))
+	accepted := make([]result, 0)
+	for _, item := range acceptances {
+		item.Answer = nil
+		accepted = append(accepted, result{item, item.Task})
 	}
+
+	acceptedJson, err := util.StructToJsonStr(accepted)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "json convert error",
+		})
+		log.ErrorLog.Println(err)
+		c.Error(err)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"accepted": acceptedJson,
+	})
+	log.InfoLog.Println(accepterId, len(accepted), "success")
 }

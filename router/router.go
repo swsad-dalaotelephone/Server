@@ -36,7 +36,7 @@ func InitRouter() *gin.Engine {
 		userGroup.DELETE("/session", auth.AuthMiddleware(), userController.Logout)
 		userGroup.GET("/profile", auth.AuthMiddleware(), userController.GetProfile)
 		userGroup.PUT("/profile", auth.AuthMiddleware(), userController.UpdateProfile)
-		userGroup.PATCH("/password", auth.AuthMiddleware(), userController.ModifyPassword)
+		userGroup.PUT("/password", auth.AuthMiddleware(), userController.ModifyPassword)
 		userGroup.GET("/preferences", userController.GetPreferencesById)
 		userGroup.PUT("/preferences", userController.UpdatePreferences)
 		userGroup.GET("/recommendedTasks", userController.GetRecommendTasks)
@@ -51,13 +51,13 @@ func InitRouter() *gin.Engine {
 		taskGroup.PUT("", auth.AuthMiddleware(), taskController.UpdateTask)
 		taskGroup.GET("/:task_id", taskController.GetTaskDetail)
 		taskGroup.GET("/:task_id/submittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
-		taskGroup.PATCH("/:task_id/status", auth.AuthMiddleware(), taskController.StopTask)
+		taskGroup.PUT("/:task_id/status", auth.AuthMiddleware(), taskController.StopTask)
 		taskGroup.GET("/:task_id/statistic", auth.AuthMiddleware(), taskController.GetStatistics)
 		taskGroup.GET("/:task_id/statistic/downloadLink", auth.AuthMiddleware(), taskController.DownloadStatistics)
 		taskGroup.POST("/:task_id/acceptance", auth.AuthMiddleware(), taskController.AcceptTask)
 		taskGroup.DELETE("/:task_id/acceptance", auth.AuthMiddleware(), taskController.QuitTask)
-		taskGroup.PATCH("/:task_id/acceptance/answer", auth.AuthMiddleware(), taskController.SubmitTask)
-		taskGroup.PATCH("/:task_id/acceptance/result", auth.AuthMiddleware(), taskController.VerifyTask)
+		taskGroup.PUT("/:task_id/acceptance/answer", auth.AuthMiddleware(), taskController.SubmitTask)
+		taskGroup.PUT("/:task_id/acceptance/result", auth.AuthMiddleware(), taskController.VerifyTask)
 	}
 
 	// ad api
