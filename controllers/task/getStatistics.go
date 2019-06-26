@@ -148,9 +148,6 @@ func GetStatistics(c *gin.Context) {
 
 	// === init res ===
 
-	log.ErrorLog.Println("before")
-	log.ErrorLog.Println(res)
-
 	for i := 0; i < len(acceptances); i++ {
 		answers, err := simplejson.NewJson(acceptances[i].Answer)
 		if err != nil {
@@ -192,10 +189,14 @@ func GetStatistics(c *gin.Context) {
 		}
 	}
 
-	log.ErrorLog.Println("after")
-	log.ErrorLog.Println(res)
+	log.ErrorLog.Println("res")
+	log.ErrorLog.Println(res.statistics)
 
-	resJson, err := util.StructToJson(res)
+	resJson, err := util.StructToJson(res.statistics)
+
+	log.ErrorLog.Println("resJson")
+	log.ErrorLog.Println(resJson)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "json convert error",
