@@ -125,21 +125,19 @@ func GetStatistics(c *gin.Context) {
 
 	var res result
 	for i := range tempAnswersArr {
-		tempAnswer := tempAnswers.Get("answer").GetIndex(i)
-		log.ErrorLog.Println(tempAnswer)
-		options, err := tempAnswer.Get("option").Array()
-		log.ErrorLog.Println(options)
-		log.ErrorLog.Println(tempAnswer.Get("option"))
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": "tempAnswer json parse error: " + err.Error(),
-			})
-			log.ErrorLog.Println(err)
-			c.Error(err)
-			return
-		}
+		tempAnswer := tempAnswers.Get("answer").GetIndex(i)				
 
 		if tempAnswer.Get("type").MustString() == "m" {
+			options, err := tempAnswer.Get("option").Array()				
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"msg": "tempAnswer json parse error: " + err.Error(),
+				})
+				log.ErrorLog.Println(err)
+				c.Error(err)
+				return
+			}
+
 			var item ResultItem
 			item.OptionCount = make([]int, len(options))
 			item.OptionName = make([]string, len(options))
