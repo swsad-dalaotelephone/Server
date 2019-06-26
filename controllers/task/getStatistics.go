@@ -103,8 +103,7 @@ func GetStatistics(c *gin.Context) {
 
 	// === init res ===
 
-	tempAnswers, err := simplejson.NewJson(acceptances[0].Answer)
-	log.ErrorLog.Println(tempAnswers)
+	tempAnswers, err := simplejson.NewJson(acceptances[0].Answer)	
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "tempAnswers json parse error: " + err.Error(),
@@ -114,8 +113,7 @@ func GetStatistics(c *gin.Context) {
 		return
 	}
 
-	tempAnswersArr, err := tempAnswers.Get("answer").Array()
-	log.ErrorLog.Println(tempAnswersArr)
+	tempAnswersArr, err := tempAnswers.Get("answer").Array()	
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": "tempAnswersArr json parse error: " + err.Error(),
@@ -128,7 +126,10 @@ func GetStatistics(c *gin.Context) {
 	var res result
 	for i := range tempAnswersArr {
 		tempAnswer := tempAnswers.Get("answer").GetIndex(i)
+		log.ErrorLog.Println(tempAnswer)
 		options, err := tempAnswer.Get("option").Array()
+		log.ErrorLog.Println(options)
+		log.ErrorLog.Println(tempAnswer.Get("option"))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "tempAnswer json parse error: " + err.Error(),
