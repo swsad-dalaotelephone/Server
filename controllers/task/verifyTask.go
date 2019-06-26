@@ -25,7 +25,7 @@ func VerifyTask(c *gin.Context) {
 	result := c.PostForm("result")
 	feedback := c.PostForm("feedback")
 
-	if taskId == "" || publisherId == "" || accepterId == "" || result == "" || feedback == "" {
+	if taskId == "" || publisherId == "" || accepterId == "" || result == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",
 		})
@@ -63,6 +63,15 @@ func VerifyTask(c *gin.Context) {
 		})
 		log.ErrorLog.Println("invalid argument")
 		c.Error(errors.New("invalid argument"))
+		return
+	}
+	//publisher of task is not this user
+	if tasks[0].Id != publisherId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "permission denied",
+		})
+		log.ErrorLog.Println("permission denied")
+		c.Error(errors.New("permission denied"))
 		return
 	}
 
