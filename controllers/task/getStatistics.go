@@ -148,7 +148,8 @@ func GetStatistics(c *gin.Context) {
 
 	// === init res ===
 
-	log.ErrorLog.Println("before: " + res)
+	log.ErrorLog.Println("before")
+	log.ErrorLog.Println(res)
 
 	for i := 0; i < len(acceptances); i++ {
 		answers, err := simplejson.NewJson(acceptances[i].Answer)
@@ -191,7 +192,8 @@ func GetStatistics(c *gin.Context) {
 		}
 	}
 
-	log.ErrorLog.Println("after: " + res)
+	log.ErrorLog.Println("after")
+	log.ErrorLog.Println(res)
 
 	resJson, err := util.StructToJson(res)
 	if err != nil {
