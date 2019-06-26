@@ -20,7 +20,7 @@ type ResultItem struct {
 }
 
 type result struct {
-	statistics []ResultItem
+	Statistics []ResultItem `json:"statistics"`
 }
 
 /*
@@ -142,7 +142,7 @@ func GetStatistics(c *gin.Context) {
 			item.OptionCount = make([]int, len(options))
 			item.OptionName = make([]string, len(options))
 			item.Question = "question"
-			res.statistics = append(res.statistics, item)
+			res.Statistics = append(res.Statistics, item)
 		}
 	}
 
@@ -169,8 +169,8 @@ func GetStatistics(c *gin.Context) {
 			return
 		}
 
-		for i := range answersArr {
-			answer := answers.Get("answer").GetIndex(i)
+		for j := range answersArr {
+			answer := answers.Get("answer").GetIndex(j)
 			if answer.Get("type").MustString() == "m" {
 				options, err := answer.Get("option").Array()
 				if err != nil {
@@ -181,18 +181,22 @@ func GetStatistics(c *gin.Context) {
 					c.Error(err)
 					return
 				}
-
-				for j := range options {
-					res.statistics[i].OptionCount[answer.Get("option").GetIndex(j).MustInt()]++
+				
+				for k := range options {
+					log.ErrorLog.Println("in loop")
+					log.ErrorLog.Println(k)
+					log.ErrorLog.Println(answer.Get("option").GetIndex(k).MustInt())
+					log.ErrorLog.Println(len(res.Statistics[j].OptionCount))
+					res.Statistics[j].OptionCount[answer.Get("option").GetIndex(k).MustInt()]++
 				}
 			}
 		}
 	}
 
 	log.ErrorLog.Println("res")
-	log.ErrorLog.Println(res.statistics)
+	log.ErrorLog.Println(res)
 
-	resJson, err := util.StructToJson(res.statistics)
+	resJson, err := util.StructToJsonStr(res)
 
 	log.ErrorLog.Println("resJson")
 	log.ErrorLog.Println(resJson)
@@ -206,9 +210,8 @@ func GetStatistics(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"statistics": resJson,
-	})
-	log.InfoLog.Println(len(res.statistics), "success")
+	c.JSON(http.StatusOK, resJson)
+
+	log.InfoLog.Println(len(res.Statistics), "success")
 
 }
