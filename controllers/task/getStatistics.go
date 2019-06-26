@@ -169,8 +169,8 @@ func GetStatistics(c *gin.Context) {
 			return
 		}
 
-		for i := range answersArr {
-			answer := answers.Get("answer").GetIndex(i)
+		for j := range answersArr {
+			answer := answers.Get("answer").GetIndex(j)
 			if answer.Get("type").MustString() == "m" {
 				options, err := answer.Get("option").Array()
 				if err != nil {
@@ -181,9 +181,13 @@ func GetStatistics(c *gin.Context) {
 					c.Error(err)
 					return
 				}
-
-				for j := range options {
-					res.Statistics[i].OptionCount[answer.Get("option").GetIndex(j).MustInt()]++
+				
+				for k := range options {
+					log.ErrorLog.Println("in loop")
+					log.ErrorLog.Println(k)
+					log.ErrorLog.Println(answer.Get("option").GetIndex(k).MustInt())
+					log.ErrorLog.Println(len(res.Statistics[j].OptionCount))
+					res.Statistics[j].OptionCount[answer.Get("option").GetIndex(k).MustInt()]++
 				}
 			}
 		}
