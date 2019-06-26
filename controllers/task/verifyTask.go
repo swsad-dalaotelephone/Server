@@ -24,12 +24,6 @@ func VerifyTask(c *gin.Context) {
 	accepterId := c.PostForm("accepter_id")
 	result := c.PostForm("result")
 	feedback := c.PostForm("feedback")
-
-	log.ErrorLog.Println(taskId)
-	log.ErrorLog.Println(publisherId)
-	log.ErrorLog.Println(accepterId)
-	log.ErrorLog.Println(result)
-	log.ErrorLog.Println(feedback)
 	
 	if taskId == "" || publisherId == "" || accepterId == "" || result == "" || feedback == "" {
 		c.JSON(http.StatusBadRequest, gin.H{

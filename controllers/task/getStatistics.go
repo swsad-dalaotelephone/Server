@@ -104,9 +104,10 @@ func GetStatistics(c *gin.Context) {
 	// === init res ===
 
 	tempAnswers, err := simplejson.NewJson(acceptances[0].Answer)
+	log.ErrorLog.Println(tempAnswers)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "json pasre error",
+			"msg": "tempAnswers json parse error: " + err.Error(),
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
@@ -114,9 +115,10 @@ func GetStatistics(c *gin.Context) {
 	}
 
 	tempAnswersArr, err := tempAnswers.Get("answer").Array()
+	log.ErrorLog.Println(tempAnswersArr)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "json parse error",
+			"msg": "tempAnswersArr json parse error: " + err.Error(),
 		})
 		log.ErrorLog.Println(err)
 		c.Error(err)
@@ -129,7 +131,7 @@ func GetStatistics(c *gin.Context) {
 		options, err := tempAnswer.Get("option").Array()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": "json parse error",
+				"msg": "tempAnswer json parse error: " + err.Error(),
 			})
 			log.ErrorLog.Println(err)
 			c.Error(err)
@@ -151,7 +153,7 @@ func GetStatistics(c *gin.Context) {
 		answers, err := simplejson.NewJson(acceptances[i].Answer)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": "json parse error",
+				"msg": "answers json parse error: " + err.Error(),
 			})
 			log.ErrorLog.Println(err)
 			c.Error(err)
@@ -161,7 +163,7 @@ func GetStatistics(c *gin.Context) {
 		answersArr, err := answers.Get("answer").Array()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"msg": "json parse error",
+				"msg": "answersArr json parse error: " + err.Error(),
 			})
 			log.ErrorLog.Println(err)
 			c.Error(err)
@@ -174,7 +176,7 @@ func GetStatistics(c *gin.Context) {
 				options, err := answer.Get("option").Array()
 				if err != nil {
 					c.JSON(http.StatusInternalServerError, gin.H{
-						"msg": "json parse error",
+						"msg": "options json parse error: " + err.Error(),
 					})
 					log.ErrorLog.Println(err)
 					c.Error(err)
