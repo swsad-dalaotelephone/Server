@@ -62,7 +62,11 @@ docker.io/mysql     5.7.25              98455b9624a9        3 months ago        
 docker.io/golang    1.11.5              1454e2b3d01f        3 months ago        816 MB
 docker.io/redis     5.0.2               5958914cc558        6 months ago        94.9 MB
 docker.io/nginx     1.12.2              4037a5562b03        14 months ago       108 MB
+
+$ docker pull xxx:version
 ```
+
+configure settings: modify config.json 
 
 create Dockfile as [file](./Dockerfile)
 
