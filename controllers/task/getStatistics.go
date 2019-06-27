@@ -128,15 +128,15 @@ func GetStatistics(c *gin.Context) {
 		tempAnswer := tempAnswers.Get("answer").GetIndex(i)
 
 		if tempAnswer.Get("type").MustString() == "m" {
-			options, err := tempAnswer.Get("option").Array()
-			if err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{
-					"msg": "tempAnswer json parse error: " + err.Error(),
-				})
-				log.ErrorLog.Println(err)
-				c.Error(err)
-				return
-			}
+			// options, err := tempAnswer.Get("option").Array()
+			// if err != nil {
+			// 	c.JSON(http.StatusInternalServerError, gin.H{
+			// 		"msg": "tempAnswer json parse error: " + err.Error(),
+			// 	})
+			// 	log.ErrorLog.Println(err)
+			// 	c.Error(err)
+			// 	return
+			// }
 
 			// var item ResultItem
 			// item.OptionCount = make([]int, len(options))
