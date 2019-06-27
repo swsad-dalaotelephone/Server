@@ -3,7 +3,9 @@ package taskController
 import (
 	"errors"
 	"net/http"
+	"os"
 
+	"github.com/swsad-dalaotelephone/Server/config"
 	"github.com/swsad-dalaotelephone/Server/models/task"
 	"github.com/swsad-dalaotelephone/Server/models/user"
 	"github.com/swsad-dalaotelephone/Server/modules/log"
@@ -61,7 +63,7 @@ func DownloadStatistics(c *gin.Context) {
 	}
 
 	// todo: the statistics file path on server
-	path := ""
+	path := os.Getenv("GOPATH") + "/src/github.com/swsad-dalaotelephone/Server" + config.ServerConfig.FilePath
 	link := path + taskId + ".csv"
 
 	// todo: if file is not exist, then generate the file
