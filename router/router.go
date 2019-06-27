@@ -51,8 +51,7 @@ func InitRouter() *gin.Engine {
 	taskGroup := router.Group("/task")
 	{
 		taskGroup.POST("", auth.AuthMiddleware(), taskController.PublishTask)
-		//taskGroup.PUT("", auth.AuthMiddleware(), taskController.UpdateTask)
-		taskGroup.POST("", auth.AuthMiddleware(), taskController.UpdateTask)
+		taskGroup.PUT("", auth.AuthMiddleware(), taskController.UpdateTask)
 		taskGroup.GET("/:task_id", taskController.GetTaskDetail)
 		taskGroup.GET("/:task_id/submittedTasks", auth.AuthMiddleware(), taskController.GetSubmittedTasks)
 		//taskGroup.PUT("/:task_id/status", auth.AuthMiddleware(), taskController.StopTask)
