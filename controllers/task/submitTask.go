@@ -24,12 +24,11 @@ func SubmitTask(c *gin.Context) {
 	user := c.MustGet("user").(userModel.User)
 	accepterId := user.Id
 	answer := c.PostForm("answer")
-
 	if taskId == "" || accepterId == "" || answer == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",
 		})
-		log.ErrorLog.Println("missing argument")
+		log.ErrorLog.Println("missing argument", " taskId = ", taskId, " accepterId = ", accepterId, " answer = ", answer)
 		c.Error(errors.New("missing argument"))
 		return
 	}
