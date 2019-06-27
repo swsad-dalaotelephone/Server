@@ -17,14 +17,13 @@
 		"ImgPath"        	  : "/storage/img",  /*图片的目录*/
 		"Port"                : 8080,       /*server监听的端口*/
 		"SessionID"           : "sid",      /*后台设置的session id*/
-		"MaxOrder"            : 10000,      /*最大的排序号*/
-		"MinOrder"            : 0,          /*最小的排序号*/
 		"PageSize"            : 20,         /*默认每页的条数*/
 		"MaxPageSize"         : 100,        /*每页最大的条数*/
 		"MinPageSize"         : 20,         /*每页最小的条数*/
 		"MaxNameLen"          : 100,        /*最大的名称长度*/
 		"MaxRemarkLen"        : 500,        /*最大的备注长度*/
-		"MaxContentLen"       : 10000      /*最大的内容长度*/
+		"MaxContentLen"       : 10000,      /*最大的内容长度*/
+		"Timeout"			: 10		/*超时秒数*/
 	},
 	"weApp": {
 		"AppID"    : "", /*小程序ID*/

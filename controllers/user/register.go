@@ -32,7 +32,6 @@ func Register(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-
 	if len(users) != 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "phone is registered",

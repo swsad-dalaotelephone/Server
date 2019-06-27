@@ -1,7 +1,9 @@
 package main
 
 import (
+	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/swsad-dalaotelephone/Server/config"
 	. "github.com/swsad-dalaotelephone/Server/router"
@@ -17,5 +19,12 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	router := InitRouter()
-	router.Run(":" + strconv.Itoa(config.ServerConfig.Port))
+	s := &http.Server{
+		Addr:           ":" + strconv.Itoa(config.ServerConfig.Port),
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	s.ListenAndServe()
 }
