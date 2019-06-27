@@ -19,7 +19,6 @@ return: msg
 func UpdateProfile(c *gin.Context) {
 
 	user := c.MustGet("user").(userModel.User)
-	id := user.Id
 
 	var newUser userModel.User
 
@@ -32,41 +31,9 @@ func UpdateProfile(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-	newUser.Id = id
-
-	oldUsers, err := userModel.GetUsersByStrKey("id", id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"msg": err.Error(),
-		})
-		log.ErrorLog.Println(err)
-		c.Error(err)
-		return
-	}
-
-	if len(oldUsers) == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"msg": "can not find user",
-		})
-		log.ErrorLog.Println("can not find user")
-		c.Error(errors.New("can not find user"))
-		return
-	}
-
-	// user auth to check user
-	oldUser := c.MustGet("user").(userModel.User)
-	if oldUser.Id != id {
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"msg": "permission denied",
-			})
-			log.ErrorLog.Println("permission denied")
-			c.Error(errors.New("permission denied"))
-			return
-		}
-	}
-
-	// todo: field check
+	newUser.Id = user.Id
+	newUser.Password = user.Password
+	newUser.Phone = user.Phone
 
 	if err := userModel.UpdateUser(newUser); err == nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -83,8 +50,8 @@ func UpdateProfile(c *gin.Context) {
 	}
 
 	// modify "AccepterName" in all acceptance of this user
-	if newUser.NickName != oldUsers[0].NickName {
-		acceptances, err := taskModel.GetAcceptancesByStrKey("accepter_id", oldUsers[0].Id)
+	if newUser.NickName != user.NickName {
+		acceptances, err := taskModel.GetAcceptancesByStrKey("accepter_id", user.Id)
 		if err != nil {
 			log.ErrorLog.Println(err)
 		} else {

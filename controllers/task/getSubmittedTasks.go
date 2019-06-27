@@ -1,6 +1,7 @@
 package taskController
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/swsad-dalaotelephone/Server/models/task"
@@ -41,6 +42,15 @@ func GetSubmittedTasks(c *gin.Context) {
 		})
 		log.ErrorLog.Println("invalid argument")
 		c.Error(err)
+		return
+	}
+
+	if publisherId != tasks[0].PublisherId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "permission denied",
+		})
+		log.ErrorLog.Println("permission denied")
+		c.Error(errors.New("permission denied"))
 		return
 	}
 

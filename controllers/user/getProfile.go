@@ -30,9 +30,8 @@ func GetProfile(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"msg":  "successfully register",
+		"msg":  "success",
 		"user": userJson,
 	})
-	log.InfoLog.Println("successfully register")
-
+	log.InfoLog.Println("success")
 }

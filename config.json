@@ -12,7 +12,7 @@
 		"URL"          : ""         /*数据库连接地址*/
 	},
 	"apiServer": {
-		"Debug"               : true,       /*是否是debug模式*/
+		"Debug"               : false,       /*是否是debug模式*/
 		"FilePath"             : "/storage/file",  /*问卷统计结果的目录*/
 		"ImgPath"        	  : "/storage/img",  /*图片的目录*/
 		"Port"                : 8080,       /*server监听的端口*/

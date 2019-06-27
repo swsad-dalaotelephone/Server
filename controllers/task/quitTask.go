@@ -32,7 +32,7 @@ func QuitTask(c *gin.Context) {
 	// 	return
 	// }
 
-	if taskId == "" || accepterId == "" {
+	if taskId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",
 		})
