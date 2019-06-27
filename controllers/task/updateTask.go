@@ -32,7 +32,7 @@ func UpdateTask(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-
+	//publisher of task is not this user
 	oldTasks, err := taskModel.GetTasksByStrKey("id", newTask.Id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
