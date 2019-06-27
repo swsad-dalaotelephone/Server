@@ -24,7 +24,7 @@ func StopTask(c *gin.Context) {
 	user := c.MustGet("user").(userModel.User)
 	publisherId := user.Id
 
-	if taskId == "" || publisherId == "" {
+	if taskId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "missing argument",
 		})
@@ -53,25 +53,14 @@ func StopTask(c *gin.Context) {
 		return
 	}
 
-	// // check publisher_id exist or not
-	// users, err := userModel.GetUsersByStrKey("id", publisherId)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{
-	// 		"msg": err.Error(),
-	// 	})
-	// 	log.ErrorLog.Println(err)
-	// 	c.Error(err)
-	// 	return
-	// }
-
-	// if len(users) == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{
-	// 		"msg": "invalid argument",
-	// 	})
-	// 	log.ErrorLog.Println("invalid argument")
-	// 	c.Error(errors.New("invalid argument"))
-	// 	return
-	// }
+	if publisherId != tasks[0].PublisherId {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "permission denied",
+		})
+		log.ErrorLog.Println("permission denied")
+		c.Error(errors.New("permission denied"))
+		return
+	}
 
 	// todo: delete acceptance by task id?
 	if err := taskModel.DeleteTaskById(taskId); err == nil {

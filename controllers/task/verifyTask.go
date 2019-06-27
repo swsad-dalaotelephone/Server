@@ -66,7 +66,7 @@ func VerifyTask(c *gin.Context) {
 		return
 	}
 	//publisher of task is not this user
-	if tasks[0].Id != publisherId {
+	if tasks[0].PublisherId != publisherId {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "permission denied",
 		})

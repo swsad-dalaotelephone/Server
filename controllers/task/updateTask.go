@@ -52,7 +52,7 @@ func UpdateTask(c *gin.Context) {
 		return
 	}
 
-	if oldTasks[0].Id != publisherId {
+	if oldTasks[0].PublisherId != publisherId {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "permission denied",
 		})
