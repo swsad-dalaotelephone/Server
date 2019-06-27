@@ -3,6 +3,7 @@ package taskController
 import (
 	"errors"
 	"net/http"
+	"encoding/csv"
 
 	simplejson "github.com/bitly/go-simplejson"
 	"github.com/swsad-dalaotelephone/Server/models/task"
@@ -196,14 +197,13 @@ func GetStatistics(c *gin.Context) {
 			}
 		}
 	}
-
+	
 	log.ErrorLog.Println("res")
 	log.ErrorLog.Println(res)
-
 	resJson, err := util.StructToJsonStr(res)
 
-	log.ErrorLog.Println("resJson")
-	log.ErrorLog.Println(resJson)
+	path := os.Getenv("GOPATH") + "/src/github.com/swsad-dalaotelephone/Server" + config.ServerConfig.FilePath
+	link := path + taskId + ".csv"
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
