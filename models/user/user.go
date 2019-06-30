@@ -25,7 +25,7 @@ type User struct {
 	Birthday    string       `gorm:"column:birthday" json:"birthday"`
 	Gender      int          `gorm:"column:gender" json:"gender"` //male - 1   female  - 2  empty - 0
 	CampusId    int          `gorm:"column:campus_id" json:"campus_id"`
-	SchoolId    string       `gorm:"column:school_id" json:"school_id"`
+	SchoolId    int          `gorm:"column:school_id" json:"school_id"`
 	Grade       string       `gorm:"column:grade; type:varchar(20);" json:"grade"`
 	Account     int          `gorm:"column:account; default:0" json:"account"`
 	Email       string       `gorm:"column:email" json:"email"`
