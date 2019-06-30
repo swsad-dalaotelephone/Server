@@ -1,21 +1,25 @@
 version: "3"
 services:
-  server:
-    image: gitgiter/baobaozhuan_server:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
-    ports:
-      - "8080:8080"
-    networks:
-      - webnet
+  # server:
+  #   image: gitgiter/baobaozhuan_server:latest
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #     resources:
+  #       limits:
+  #         cpus: "0.1"
+  #         memory: 50M
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - webnet
   db:
-    image: mysql:5.7.25
+    # image: mysql:5.7.25
+    image: gitgiter/baobaozhuan_db:latest
     deploy:
       replicas: 1
       restart_policy:
